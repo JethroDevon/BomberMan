@@ -19,9 +19,14 @@ class PowerUp
 {
     public:
         PowerUp();
-        virtual ~PowerUp();
-    protected:
+        ~PowerUp();
+
+        int getPosX();
+        int getPosY();
+
     private:
+
+        int poX, poY, poH, poW;
 };
 
 #endif // POWERUP_H

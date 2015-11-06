@@ -17,15 +17,17 @@
 // game loop, it takes in data passed to   |
 // it by the game class and contains logic |
 // for the player to exit the game to the  |
-// main gui.                               |
+// main GUI.                               |
 // ----------------------------------------
 
 #ifndef HUD_H
 #define HUD_H
 
 
-class Hud
-{
+class Hud{
+
+    //: public Sprites{
+
     public:
         Hud();
         virtual ~Hud();

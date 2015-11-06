@@ -9,3 +9,13 @@ PowerUp::~PowerUp()
 {
     //dtor
 }
+
+int PowerUp::getPosX(){
+
+    return poX;
+}
+
+int PowerUp::getPosY(){
+
+    return poY;
+}

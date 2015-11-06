@@ -32,9 +32,9 @@ class Arena{
         //destructor is important for clean shut down
         ~Arena();
 
-        //Arena class manages a blockGrid in the form of a vector, this is
+        //Arena class manages a block handler in the form of a vector, this is
         //to create a map of blocks the players can or cannot destroy with bombs
-        std::vector <Block* > blockGrid;
+        std::vector <Block* > handler;
 
         //reference object of RenderWindow for draw function
         sf::RenderWindow &win;

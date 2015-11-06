@@ -52,7 +52,7 @@ class Block: public Sprites{
         bool destruct;
 
         //position x y and block width and block height
-        int pX, pY, bW, bH;
+        int blX, blY, blW, blH;
 };
 
 #endif // BLOCK_H

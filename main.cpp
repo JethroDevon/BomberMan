@@ -1,6 +1,7 @@
 #include <SFML\Graphics.hpp>
 #include <Player.h>
 #include <Arena.h>
+#include <Game.h>
 
 int main(){
 
@@ -8,6 +9,8 @@ int main(){
     sf::RenderWindow window(sf::VideoMode(800, 600), "BOMBER MAN");
 
     window.setFramerateLimit(12);
+
+    Game game(3);
 
     Player pl(window);
     Arena arena(window);
@@ -36,6 +39,8 @@ int main(){
 
         //draw player sprites
         pl.Draw();
+
+       // game.collisions(3,3);
 
         // end the current frame
         window.display();

@@ -22,13 +22,35 @@
 #ifndef BOMB_H
 #define BOMB_H
 
+#include "Sprites.h"
 
-class Bomb
-{
+class Bomb: public Sprites{
     public:
-        Bomb();
-    protected:
+        Bomb(int, int, int, int);
+        ~Bomb();
+
+        void setPosX(int);
+        void setPosY(int);
+        int getPosX();
+        int getPosY();
+
+        int getTicks();
+        int getFlame();
+
+        //sets timer on newbombs
+        void setTicks(int _T);
+
+        //sets flame size on new bombs
+        void setFlame(int _F);
+
+        //returns sprite containing frame of bomb texture
+        sf::Sprite bombFrame();
+
+        //sets the sprites position when it is created
+        void setSpritePos();
     private:
+
+        int boX, boY, boH, boW, ticks, flame;
 };
 
 #endif // BOMB_H

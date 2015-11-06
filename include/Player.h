@@ -16,6 +16,8 @@
 #define PLAYER_H
 
 #include "Sprites.h"
+#include "Bomb.h"
+#include <vector>
 
 //set sprite class to be base class of player for acces to animation functions
 class Player: public Sprites{
@@ -25,6 +27,9 @@ class Player: public Sprites{
         Player(sf::RenderWindow &_window);
 
         ~Player();
+
+        //players bomb handling class
+         std::vector <Bomb* > handler;
 
          //reference object of RenderWindow for draw function
         sf::RenderWindow &win;
@@ -45,11 +50,11 @@ class Player: public Sprites{
         void moveSprites(int _mX, int _mY);
 
         //sets position of player object
-        void setPos(int _mX, int _mY);
+        void setPosXY(int _mX, int _mY);
 
         //these return pX and pY player position integers
-        int getX();
-        int getY();
+        int getPosX();
+        int getPosY();
 
         //this returns the players movement heading
         int getFace();
@@ -62,6 +67,8 @@ class Player: public Sprites{
         bool getCollision();
 
         void setCollision(bool);
+
+        void drawBombs();
 
     private:
 

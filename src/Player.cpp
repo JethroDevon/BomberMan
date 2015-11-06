@@ -68,16 +68,20 @@ void Player::movePlayer(){
 //sets the sprites position
 void Player::setSpritePos(int _mX, int _mY){
 
-    setPos(_mX, _mY);
+    //set the player position to draw
+    setPosXY(_mX, _mY);
 
     for(auto &f: frames){
 
-        f.setPosition( getX(), getY());
+        f.setPosition( getPosX(), getPosY());
     }
 }
 
 //moves the sprites by Increment
 void Player::moveSprites(int _mX, int _mY){
+
+   //set the player position to draw
+    setPosXY(getPosX() + _mX, getPosY() + _mY);
 
     for(auto &f: frames){
 
@@ -88,26 +92,40 @@ void Player::moveSprites(int _mX, int _mY){
 //detects key input and changes the value of the facing integer
 void Player::keyInput(){
 
+    //get direction character is facing
     getFace();
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 
-    // left key is pressed: move our character
-    facing = up;
+        // left key is pressed: move our character
+        facing = up;
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 
-    // left key is pressed: move our character
-    facing = down;
+        // left key is pressed: move our character
+        facing = down;
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 
-    // left key is pressed: move our character
-    facing = left;
+        // left key is pressed: move our character
+        facing = left;
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 
-    // left key is pressed: move our character
-    facing = right;
+        // left key is pressed: move our character
+        facing = right;
     }else{
 
-    facing = none;
+        //set direction to move player to none to stop player moving
+        facing = none;
+    }
+
+    //this is seperate from the main block so player can walk and lay bombs
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+
+
+        //add a new bomb to array, default bomb settings present for now
+        facing = none;
+
+        //creates a new bomb, the offsets of 45 are to draw the bomb in the center of the screen
+        handler.push_back(new Bomb(getPosX() - 40 , getPosY() - 40, 5, 5));
     }
 }
 
@@ -121,6 +139,7 @@ void Player::keyInput(){
                             void Player::Draw(){                                                       //
                                                                                                        //
                                 keyInput();                                                            //
+                                drawBombs();                                                           //
                                 movePlayer();                                                          //
                                 win.draw(getNext());                                                   //
                             }                                                                          //
@@ -128,20 +147,20 @@ void Player::keyInput(){
 
 
 
-
-void Player::setPos(int _mX, int _mY){
+//set X and Y position of player
+void Player::setPosXY(int _mX, int _mY){
 
     pX = _mX;
     pY = _mY;
 }
 
 //these return pX and pY player position integers
-int Player::getX(){
+int Player::getPosX(){
 
         return pX;
 }
 
-int Player::getY(){
+int Player::getPosY(){
 
     return pY;
 }
@@ -174,3 +193,15 @@ void Player::setCollision(bool _c){
 
     colliding = _c;
 }
+
+//this function draws all the blocks on the screen
+void Player::drawBombs(){
+
+    //loops through the handler array that contains an array of bombs that belong to player
+    for(auto f: handler){
+
+        //draws image function referred to frame in sprites
+        win.draw( f->bombFrame());
+    }
+}
+

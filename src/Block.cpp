@@ -1,18 +1,19 @@
 #include "Block.h"
 
-Block::Block(bool _t, int _x, int _y, int _w, int _h): destruct(_t), pX(_x), pY(_y), bW(_w), bH(_h), Sprites("blocks.png", 1, 2){
+Block::Block(bool _t, int _x, int _y, int _w, int _h): destruct(_t), blX(_x), blY(_y), blW(_w), blH(_h), Sprites("blocks.png", 1, 2){
 
+    loopMode(10, 15);
     setSpritePos();
 }
 
 int Block::getPosX(){
 
-    return pX;
+    return blX;
 }
 
 int Block::getPosY(){
 
-    return pY;
+    return blY;
 }
 
 bool Block::getType(){
@@ -27,12 +28,12 @@ sf::Sprite Block::returnBlock(bool _b){
 
 void Block::setPosX(int _x){
 
-    pX = _x;
+    blX = _x;
 }
 
 void Block::setPosY(int _y){
 
-    pY = _y;
+    blY = _y;
 }
 
 void Block::setType(bool _b){

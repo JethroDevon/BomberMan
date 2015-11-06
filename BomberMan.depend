@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1446649513 source:c:\users\jethro\desktop\uni\bomberman\main.cpp
+1446838681 source:c:\users\jethro\desktop\uni\bomberman\main.cpp
 	<SFML\Graphics.hpp>
 	<Player.h>
 	<Arena.h>
+	<Game.h>
 
 1429780453 c:\sfml-2.3.2\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -733,38 +734,48 @@
 	<iostream>
 	<vector>
 
-1446653681 source:c:\users\jethro\desktop\uni\bomberman\src\player.cpp
+1446832788 source:c:\users\jethro\desktop\uni\bomberman\src\player.cpp
 	"Player.h"
 
-1446653098 c:\users\jethro\desktop\uni\bomberman\include\player.h
+1446827958 c:\users\jethro\desktop\uni\bomberman\include\player.h
 	"Sprites.h"
+	"Bomb.h"
+	<vector>
 
-1446651761 c:\users\jethro\desktop\uni\bomberman\include\arena.h
+1446818707 c:\users\jethro\desktop\uni\bomberman\include\arena.h
 	"Sprites.h"
 	"Block.h"
 	<vector>
 
-1446560106 source:c:\users\jethro\desktop\uni\bomberman\src\bomb.cpp
+1446832885 source:c:\users\jethro\desktop\uni\bomberman\src\bomb.cpp
 	"Bomb.h"
 
-1446652152 c:\users\jethro\desktop\uni\bomberman\include\bomb.h
+1446826701 c:\users\jethro\desktop\uni\bomberman\include\bomb.h
+	"Sprites.h"
 
 1446560188 source:c:\users\jethro\desktop\uni\bomberman\src\hud.cpp
 	"Hud.h"
 
-1446652883 c:\users\jethro\desktop\uni\bomberman\include\hud.h
+1446825530 c:\users\jethro\desktop\uni\bomberman\include\hud.h
 
-1446560149 source:c:\users\jethro\desktop\uni\bomberman\src\powerup.cpp
+1446662132 source:c:\users\jethro\desktop\uni\bomberman\src\powerup.cpp
 	"Powerup.h"
 
-1446652415 c:\users\jethro\desktop\uni\bomberman\include\powerup.h
+1446662145 c:\users\jethro\desktop\uni\bomberman\include\powerup.h
 
-1446649325 source:c:\users\jethro\desktop\uni\bomberman\src\arena.cpp
+1446818619 source:c:\users\jethro\desktop\uni\bomberman\src\arena.cpp
 	"Arena.h"
 
-1446652283 c:\users\jethro\desktop\uni\bomberman\include\block.h
+1446662049 c:\users\jethro\desktop\uni\bomberman\include\block.h
 	"Sprites.h"
 
-1446650505 source:c:\users\jethro\desktop\uni\bomberman\src\block.cpp
+1446832703 source:c:\users\jethro\desktop\uni\bomberman\src\block.cpp
 	"Block.h"
+
+1446838686 source:c:\users\jethro\desktop\uni\bomberman\src\game.cpp
+	"Game.h"
+
+1446837799 c:\users\jethro\desktop\uni\bomberman\include\game.h
+	<string>
+	<iostream>
 

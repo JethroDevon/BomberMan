@@ -14,13 +14,14 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <string>
+#include <iostream>
 
-class Game
-{
+class Game{
     public:
-        Game();
+        Game(int);
 
-        bool collisions();();
+        int n;
 
     private:
 };
