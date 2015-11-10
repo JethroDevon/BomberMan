@@ -122,9 +122,94 @@ void Sprites::loopMode(int sa, int so){
         total_frames = so;
         startFrame = sa;
     }
-
-
 }
+
+//this function returns true if this sprites object that is passed into args
+//collides with the sprite object that owns this function, colSprite is from 'colliding sprite' together
+bool Sprites::collision(Sprites colSprite){
+
+    //if sprite is not above below left or right of the colliding sprite then return true, else false
+    if(getPosX() < colSprite.getPosX() + colSprite.getWidth() && getPosX() + getWidth() > colSprite.getPosX() 
+        && getPosY() < colSprite.getPosY() + colSprite.getHeight() && getPosY() + getHeight() > colSprite.getPosY()){
+
+        return true;
+    }else{
+
+        return false;
+    }
+}
+
+//set collide boolean
+void setCollide(bool _c){
+
+    colliding = _c;
+}
+
+bool getCollide(){
+
+    return colliding;
+}
+
+//sets sprites xpos
+void Sprites::setPosX(int _x){
+
+    posX = _x;
+}
+
+//sets sprites xpos
+void Sprites::setPosY(int _y){
+
+    posY = _y;
+}
+
+//sets both pos x and pos y integers
+void Sprites::setXY(int _x, int _y){
+
+    posX = _x;
+    posY = _y;
+}
+
+//following two functions simply return x and y integers
+int Sprites::getPosX(){
+
+    return posX;
+}
+
+int Sprites::getPosY(){
+
+    return posY;
+}
+
+//sets sprites xpos
+void Sprites::setWidth(int _w){
+
+    sWidth = _w;
+}
+
+//sets sprites xpos
+void Sprites::setHeight(int _h){
+
+    sHeight = _y;
+}
+
+//sets both pos x and pos y integers
+void Sprites::setHW(int _w, int _h){
+
+    sHeight = _h;
+    sWidth = _w;
+}
+
+//following two functions simply return x and y integers
+int Sprites::getWidth(){
+
+    return sWidth;
+}
+
+int Sprites::getHeight(){
+
+    return sHeight;
+}
+
 
 //this overloaded version of above only changes direction
 //if true is in the first argument
