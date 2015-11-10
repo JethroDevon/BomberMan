@@ -29,11 +29,6 @@ class Bomb: public Sprites{
         Bomb(int, int, int, int);
         ~Bomb();
 
-        void setPosX(int);
-        void setPosY(int);
-        int getPosX();
-        int getPosY();
-
         int getTicks();
         int getFlame();
 
@@ -50,7 +45,7 @@ class Bomb: public Sprites{
         void setSpritePos();
     private:
 
-        int boX, boY, boH, boW, ticks, flame;
+        int ticks, flame;
 };
 
 #endif // BOMB_H

@@ -12,7 +12,7 @@
 //      /  _ )   ,'   `-. `-. \   collisions and        |
 //     / ,' /  ,'        \ \ \ \  manages the states    |
 //    / /  / ,'          (,_)(,_) that the blocks are   |
-//   (,;  (,,)                jr  in during the game.   |
+//   (,;  (,,)                    in during the game.   |
 // -----------------------------------------------------
 
 #ifndef ARENA_H

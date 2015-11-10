@@ -49,13 +49,6 @@ class Player: public Sprites{
         //moves position of ech sprite in the sprite array
         void moveSprites(int _mX, int _mY);
 
-        //sets position of player object
-        void setPosXY(int _mX, int _mY);
-
-        //these return pX and pY player position integers
-        int getPosX();
-        int getPosY();
-
         //this returns the players movement heading
         int getFace();
 
@@ -63,10 +56,6 @@ class Player: public Sprites{
         bool newFace();
 
         void Draw();
-
-        bool getCollision();
-
-        void setCollision(bool);
 
         void drawBombs();
 
@@ -80,7 +69,7 @@ class Player: public Sprites{
         //position variables for player movement facing relates to enum direction(up, down ,left , right)
         //prevface is to store previously facing direction to avoid resetting animation loop and to create
         //special player move logic, next is player width and height, default 50 px for now
-        int pX, pY, facing, previouslyFacing, pW, pH;
+        int facing, previouslyFacing;
 
         //player may be able to customise their name
         std::string playerName;

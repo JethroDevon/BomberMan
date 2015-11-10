@@ -75,7 +75,7 @@ class Sprites{
 
         bool collision(Sprites);
 
-        void etPosX(int);
+        void setPosX(int);
 
         void setPosY(int);
 
@@ -99,7 +99,7 @@ class Sprites{
 
         void setHeight(int);
 
-        void setHW(int, int;
+        void setWH(int, int);
 
         int getWidth();
 
@@ -108,7 +108,7 @@ class Sprites{
         void setCollide(bool);
 
         bool getCollide();
-        
+
     private:
 
         //the Image variable is a contact sheet for sprites to use in animation

@@ -69,7 +69,7 @@ void Player::movePlayer(){
 void Player::setSpritePos(int _mX, int _mY){
 
     //set the player position to draw
-    setPosXY(_mX, _mY);
+    setXY(_mX, _mY);
 
     for(auto &f: frames){
 
@@ -81,7 +81,7 @@ void Player::setSpritePos(int _mX, int _mY){
 void Player::moveSprites(int _mX, int _mY){
 
    //set the player position to draw
-    setPosXY(getPosX() + _mX, getPosY() + _mY);
+    setXY(getPosX() + _mX, getPosY() + _mY);
 
     for(auto &f: frames){
 
@@ -145,26 +145,6 @@ void Player::keyInput(){
                             }                                                                          //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-//set X and Y position of player
-void Player::setPosXY(int _mX, int _mY){
-
-    pX = _mX;
-    pY = _mY;
-}
-
-//these return pX and pY player position integers
-int Player::getPosX(){
-
-        return pX;
-}
-
-int Player::getPosY(){
-
-    return pY;
-}
-
 //this returns the players movement heading
 int Player::getFace(){
 
@@ -182,16 +162,6 @@ int Player::getFace(){
 
         return false;
     }
-}
-
-bool Player::getCollision(){
-
-    return colliding;
-}
-
-void Player::setCollision(bool _c){
-
-    colliding = _c;
 }
 
 //this function draws all the blocks on the screen

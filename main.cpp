@@ -10,7 +10,6 @@ int main(){
 
     window.setFramerateLimit(12);
 
-    Game game(3);
 
     Player pl(window);
     Arena arena(window);

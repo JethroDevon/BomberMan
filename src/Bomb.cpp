@@ -8,7 +8,6 @@ Bomb::Bomb(int _X, int _Y, int _F, int _T): Sprites("Blast.png",3 , 5){
     //initialises the objects member variables
     setPosX(_X);
     setPosY(_Y);
-    setSpritePos();
     setTicks(_T);
     setFlame(_F);
 }
@@ -19,25 +18,6 @@ Bomb::~Bomb(){
     delete this;
 }
 
-void Bomb::setPosX(int _X){
-
-    boX = _X;
-}
-
-void Bomb::setPosY(int _Y){
-
-    boY = _Y;
-}
-
-int Bomb::getPosX(){
-
-    return boX;
-}
-
-int Bomb::getPosY(){
-
-    return boY;
-}
 
 //returns amount of time until bomb detonates
 int Bomb::getTicks(){
@@ -68,14 +48,5 @@ sf::Sprite Bomb::bombFrame(){
 
     //the array Frames has a bomb image stored at index 5
     return getNext();
-}
-
-//sets the bomb sprites position
-void Bomb::setSpritePos(){
-
-    for(auto &f: frames){
-
-        f.setPosition( getPosX(), getPosY());
-    }
 }
 

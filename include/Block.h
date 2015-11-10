@@ -31,28 +31,16 @@ class Block: public Sprites{
         //sets if the block is destructible or not (true for destructible)
         void setType(bool);
 
-        int getPosX();
-
-        int getPosY();
-
         bool getType();
 
-        void setPosX(int);
-
-        void setPosY(int);
-
         sf::Sprite returnBlock(bool);
-
-        //sets the sprites position
-        void setSpritePos();
 
     private:
 
         //if block is destructible then false else true, this will apply to destroying the block and drawring the block
         bool destruct;
 
-        //position x y and block width and block height
-        int blX, blY, blW, blH;
+
 };
 
 #endif // BLOCK_H

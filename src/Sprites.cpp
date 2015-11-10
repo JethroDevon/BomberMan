@@ -129,7 +129,7 @@ void Sprites::loopMode(int sa, int so){
 bool Sprites::collision(Sprites colSprite){
 
     //if sprite is not above below left or right of the colliding sprite then return true, else false
-    if(getPosX() < colSprite.getPosX() + colSprite.getWidth() && getPosX() + getWidth() > colSprite.getPosX() 
+    if(getPosX() < colSprite.getPosX() + colSprite.getWidth() && getPosX() + getWidth() > colSprite.getPosX()
         && getPosY() < colSprite.getPosY() + colSprite.getHeight() && getPosY() + getHeight() > colSprite.getPosY()){
 
         return true;
@@ -140,12 +140,12 @@ bool Sprites::collision(Sprites colSprite){
 }
 
 //set collide boolean
-void setCollide(bool _c){
+void Sprites::setCollide(bool _c){
 
     colliding = _c;
 }
 
-bool getCollide(){
+bool Sprites::getCollide(){
 
     return colliding;
 }
@@ -189,11 +189,11 @@ void Sprites::setWidth(int _w){
 //sets sprites xpos
 void Sprites::setHeight(int _h){
 
-    sHeight = _y;
+    sHeight = _h;
 }
 
 //sets both pos x and pos y integers
-void Sprites::setHW(int _w, int _h){
+void Sprites::setWH(int _w, int _h){
 
     sHeight = _h;
     sWidth = _w;

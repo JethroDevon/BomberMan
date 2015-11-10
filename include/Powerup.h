@@ -5,7 +5,7 @@
 //   /7   @@@@                            |    _        _  ._      _  |
 //  /    @@@@@@                           |   (_) \/\/ (/_ |  (_) |_) |
 //  \-' @@@@@@@@`-________________                                |   |
-//   -@@@@@@@@@                /  \  dcau                             |
+//   -@@@@@@@@@                /  \                                   |
 //   _____/    /_       ______/   |_____- The power up class Derives  |
 //  /,________/  `-.___/,__________-----_)from the sprite class and   |
 // contains functions to manage simple animations, logic to pass into |
@@ -26,7 +26,7 @@ class PowerUp
 
     private:
 
-        int poX, poY, poH, poW;
+
 };
 
 #endif // POWERUP_H
