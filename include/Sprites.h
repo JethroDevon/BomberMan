@@ -63,7 +63,6 @@ class Sprites{
         //this vector will store an array of sprites that will each be part of an animation
         std::vector <sf::Sprite> frames;
 
-
         void loopMode(int, int);
 
         void loopMode(bool, int, int);
@@ -74,20 +73,42 @@ class Sprites{
 
         void addFrames();
 
+        bool collision(Sprites);
+
+        void etPosX(int);
+
+        void setPosY(int);
+
         sf::Sprite getNext();
 
-        //sets sprite to show next without calling it
         void nextFrame();
 
-        //sets frame to frame selected to be the idle frame
         void idleFrame();
 
-        //moves all sprites in sprite array
-        void movePos(int _x, int _y);
+        void movePos(int, int);
 
-        //sets frame to frame selected to be the idle frame
         sf::Sprite showFrame();
 
+        void setXY(int, int);
+
+        int getPosX();
+
+        int getPosY();
+
+        void setWidth(int);
+
+        void setHeight(int);
+
+        void setHW(int, int;
+
+        int getWidth();
+
+        int getHeight();
+
+        void setCollide(bool);
+
+        bool getCollide();
+        
     private:
 
         //the Image variable is a contact sheet for sprites to use in animation
@@ -98,6 +119,10 @@ class Sprites{
 
         //texture file for initialising sprite with
         sf::Texture tex;
+
+        int posX, posY, sWidth, sHeight;
+
+        bool colliding;
 };
 
 #endif // SPRITE_H
