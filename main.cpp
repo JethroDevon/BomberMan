@@ -14,7 +14,7 @@ int main(){
 
     Player pl(window);
     Arena arena(window);
-    arena.makeArena(7, 14, 50, 50);
+    arena.makeArena(25, 25, 25, 25);
 
     // run the program as long as the window is open
     while (window.isOpen()){

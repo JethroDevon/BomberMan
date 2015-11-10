@@ -18,10 +18,10 @@ void Arena::makeArena(int arena_width, int arena_height, int block_width, int bl
     for(int h = 0; h < arena_width; h++){
         for(int w = 0; w < arena_height; w++){
 
-            if(h < arena_width*arena_height) {
+            if(w == 0 || h == 0 ) {
 
 
-                handler.push_back(new Block(false ,h*50 , w*50, 50, 50));
+                handler.push_back(new Block(false ,w*25 , h*25, block_width, block_height));
             }
         }
     }
