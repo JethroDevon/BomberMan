@@ -13,32 +13,30 @@ Sprites::Sprites(std::string _path): path( _path){
 
     std::cout << "Image @   " << path << " failed." << std::endl;
  }
-
 }
 
 //overloaded constructor for contact sheets with multiple frames on them
 Sprites::Sprites(std::string _path, int _rows, int _cols): path( _path){
 
-rows = _rows;
-cols = _cols;
+    rows = _rows;
+    cols = _cols;
 
- //if image is found go ahead and initialise member variables
- if(setImage()){
+     //if image is found go ahead and initialise member variables
+     if(setImage()){
 
-    std::cout << "Image @" << path << " loaded." <<std::endl;
+        std::cout << "Image @" << path << " loaded." <<std::endl;
 
-    //set a starting frame, total frames and call frame array building function
-    frame = 0;
-    startFrame = frame;
-    total_frames = (rows * cols);
+        //set a starting frame, total frames and call frame array building function
+        frame = 0;
+        startFrame = frame;
+        total_frames = (rows * cols);
 
-    //breaks down image into frames in vector of sprites
-    addFrames();
- }else{
+        //breaks down image into frames in vector of sprites
+        addFrames();
+     }else{
 
-    std::cout << "Image @   " << path << " failed." << std::endl;
- }
-
+        std::cout << "Image @   " << path << " failed." << std::endl;
+     }
 }
 
 //destructor
@@ -47,46 +45,49 @@ Sprites::~Sprites(){
     delete sp_copy;
 }
 
-
+//sets some values of this class's sprite object
 void Sprites::setSprite(){
 
-            //total_frames = (rows * cols) - 1;
-            tex.create(cntSheet.getSize().x, cntSheet.getSize().y);
-            tex.update(cntSheet);
-            sprite.setTexture(tex);
+    //total_frames = (rows * cols) - 1;
+    tex.create(cntSheet.getSize().x, cntSheet.getSize().y);
+    tex.update(cntSheet);
+    sprite.setTexture(tex);
+    setXY(50, 50);
+    sprite.setPosition(getPosX(),getPosY());
 }
 
 //adds frames to the array called frames by pushing back sub images
 void Sprites::addFrames(){
 
-            //create texture and update the image from image file
-            tex.create(cntSheet.getSize().x, cntSheet.getSize().y);
-            tex.update(cntSheet);
+    //create texture and update the image from image file
+    tex.create(cntSheet.getSize().x, cntSheet.getSize().y);
+    tex.update(cntSheet);
 
-            //work out the size of the subframes if contact image is
-            //set up to cut images in this way
-            int width = (1 * cntSheet.getSize().x)/cols;
-            int height = (1 * cntSheet.getSize().y)/rows;
+    //work out the size of the subframes if contact image is
+    //set up to cut images in this way
+    int width = (1 * cntSheet.getSize().x)/cols;
+    int height = (1 * cntSheet.getSize().y)/rows;
 
-            //loop for each row and column of texture image creating sub images for animation
-            for(int c = 0; c < rows ; c++){
-                    for(int r = 0; r < cols ; r++){
+    //loop for each row and column of texture image creating sub images for animation
+    for(int c = 0; c < rows ; c++){
+            for(int r = 0; r < cols ; r++){
 
-                        //create temporary sprite object
-                        sf::Sprite tempSprite;
+                //create temporary sprite object
+                sf::Sprite tempSprite;
 
-                        //set whole texture to smaller sprite
-                        tempSprite.setTexture(tex);
+                //set whole texture to smaller sprite
+                tempSprite.setTexture(tex);
 
-                        //set that sprites texture to be a sub image of main image in order to create a frame
-                        tempSprite.setTextureRect(sf::IntRect( r*width, c*height, width, height));
+                //set that sprites texture to be a sub image of main image in order to create a frame
+                tempSprite.setTextureRect(sf::IntRect( r*width, c*height, width, height));
 
-                        //push that back onto array.
-                        frames.push_back(tempSprite);
-                    }
+                //push that back onto array.
+                frames.push_back(tempSprite);
             }
-            //return debug data
-             std::cout << "Added  " << frames.size() << " frames." << std::endl;
+    }
+
+    //return debug data
+    std::cout << "Added  " << frames.size() << " frames." << std::endl;
 }
 
 //gets the next sprite in the frame
@@ -156,7 +157,7 @@ void Sprites::setPosX(int _x){
     posX = _x;
 }
 
-//sets sprites xpos
+//sets sprites ypos
 void Sprites::setPosY(int _y){
 
     posY = _y;
@@ -210,7 +211,6 @@ int Sprites::getHeight(){
     return sHeight;
 }
 
-
 //this overloaded version of above only changes direction
 //if true is in the first argument
 void Sprites::loopMode(bool b, int sa, int so){
@@ -251,6 +251,17 @@ void Sprites::movePos(int _x, int _y){
     //loops through each sprite
     for(auto f: frames){
 
+        f.move(_x, _y);
+    }
+
+}
+
+//moves all the sprites draw positions
+void Sprites::setPos(int _x, int _y){
+
+    //loops through each sprite
+    for(auto f: frames){
+
         f.setPosition(_x, _y);
     }
 
@@ -278,5 +289,4 @@ bool Sprites::setImage(){
 
         return false;
     }
-
 }

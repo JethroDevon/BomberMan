@@ -11,7 +11,7 @@
 //          _.--------------( __   __   ___)                             |
 //       .-' \  -. | | | | | \ ---|\/|--- /     The sprite class takes   |
 //     .'\  | | / \` | | | |  `.        .'      an image on creation, it |
-//    /`  ` ` '/ / \ | | | | \  `------'\  vk   then slices this image   |
+//    /`  ` ` '/ / \ | | | | \  `------'\       then slices this image   |
 //   /-  `-------.' `-----.       -----. `---.  up and adds the sub      |
 //  (  / | | | |  )/ | | | )/ | | | | | ) | | ) images in the form of    |
 //   `._________.'_____,,,/\_______,,,,/_,,,,/  sprites initialized with |
@@ -109,6 +109,8 @@ class Sprites{
 
         bool getCollide();
 
+        void setPos(int, int);
+
     private:
 
         //the Image variable is a contact sheet for sprites to use in animation
@@ -120,6 +122,7 @@ class Sprites{
         //texture file for initialising sprite with
         sf::Texture tex;
 
+        //dimensions of the sprite or all frames of the sprite as a whole, this is for collisions or movement
         int posX, posY, sWidth, sHeight;
 
         bool colliding;

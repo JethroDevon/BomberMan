@@ -6,7 +6,7 @@ Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4
 
     //sets base classes idle frame
     idle = 6;
-    setSpritePos( 100, 100);
+    setPos( 100, 100);
 
 }
 
@@ -32,7 +32,7 @@ void Player::movePlayer(){
                 loopMode(newFace(), 0, 6);
 
                 //move sprite up incrementally
-                moveSprites(0,-6);
+                movePos(0,-6);
                 break;
 
             case 2 :
@@ -41,7 +41,7 @@ void Player::movePlayer(){
                 loopMode(newFace(), 6, 12);
 
                 //move sprite down incrementally
-                moveSprites(0,6);
+                movePos(0,6);
                 break;
 
             case 3 :
@@ -50,7 +50,7 @@ void Player::movePlayer(){
                 loopMode(newFace(), 12, 18);
 
                 //move sprite left incrementally
-                moveSprites(-6,0);
+                movePos(-6,0);
                 break;
 
             case 4 :
@@ -59,33 +59,9 @@ void Player::movePlayer(){
                 loopMode(newFace(), 18, 24);
 
                 //move sprite right incrementally
-                moveSprites(6,0);
+                movePos(6,0);
                 break;
         }
-    }
-}
-
-//sets the sprites position
-void Player::setSpritePos(int _mX, int _mY){
-
-    //set the player position to draw
-    setXY(_mX, _mY);
-
-    for(auto &f: frames){
-
-        f.setPosition( getPosX(), getPosY());
-    }
-}
-
-//moves the sprites by Increment
-void Player::moveSprites(int _mX, int _mY){
-
-   //set the player position to draw
-    setXY(getPosX() + _mX, getPosY() + _mY);
-
-    for(auto &f: frames){
-
-        f.move( _mX, _mY);
     }
 }
 
@@ -128,9 +104,6 @@ void Player::keyInput(){
         handler.push_back(new Bomb(getPosX() - 40 , getPosY() - 40, 5, 5));
     }
 }
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //         this is the player loop, it takes care of all functions that belong to                    ////

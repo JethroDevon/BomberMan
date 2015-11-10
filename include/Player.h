@@ -43,12 +43,6 @@ class Player: public Sprites{
         //changes the heading value by detecting key inputs
         void keyInput();
 
-        //sets the position of each sprite in the sprite array
-        void setSpritePos(int _mX, int _mY);
-
-        //moves position of ech sprite in the sprite array
-        void moveSprites(int _mX, int _mY);
-
         //this returns the players movement heading
         int getFace();
 
