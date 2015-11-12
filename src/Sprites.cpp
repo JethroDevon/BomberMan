@@ -1,4 +1,6 @@
 #include "Sprites.h"
+//must use a static loading class that deep copies textures!!!
+
 
 //constructor
 Sprites::Sprites(std::string _path): path( _path){
@@ -42,7 +44,7 @@ Sprites::Sprites(std::string _path, int _rows, int _cols): path( _path){
 //destructor
 Sprites::~Sprites(){
 
-    delete sp_copy;
+    frames.clear();
 }
 
 //sets some values of this class's sprite object
@@ -52,7 +54,6 @@ void Sprites::setSprite(){
     tex.create(cntSheet.getSize().x, cntSheet.getSize().y);
     tex.update(cntSheet);
     sprite.setTexture(tex);
-    setXY(50, 50);
     sprite.setPosition(getPosX(),getPosY());
 }
 
@@ -151,19 +152,20 @@ bool Sprites::getCollide(){
     return colliding;
 }
 
-//sets sprites xpos
+//sets all frames xpos
 void Sprites::setPosX(int _x){
 
     posX = _x;
 }
 
-//sets sprites ypos
+//sets all frames ypos
 void Sprites::setPosY(int _y){
 
     posY = _y;
 }
 
 //sets both pos x and pos y integers
+//of all frames
 void Sprites::setXY(int _x, int _y){
 
     posX = _x;
@@ -181,19 +183,19 @@ int Sprites::getPosY(){
     return posY;
 }
 
-//sets sprites xpos
+//sets all sprites width
 void Sprites::setWidth(int _w){
 
     sWidth = _w;
 }
 
-//sets sprites xpos
+//sets all sprites height
 void Sprites::setHeight(int _h){
 
     sHeight = _h;
 }
 
-//sets both pos x and pos y integers
+//sets both height and width integers
 void Sprites::setWH(int _w, int _h){
 
     sHeight = _h;
@@ -248,23 +250,26 @@ void Sprites::nextFrame(){
 //moves all the sprites draw positions
 void Sprites::movePos(int _x, int _y){
 
+    setXY( getPosX() +_x, getPosY() +_y);
+
     //loops through each sprite
-    for(auto f: frames){
+    for(auto &f: frames){
 
-        f.move(_x, _y);
+        //still absolutely set the position so as to keep the hit box updated also
+         f.setPosition( getPosX(), getPosY());
     }
-
 }
 
 //moves all the sprites draw positions
 void Sprites::setPos(int _x, int _y){
 
+    setXY( _x, _y);
+
     //loops through each sprite
-    for(auto f: frames){
+    for(auto &f: frames){
 
-        f.setPosition(_x, _y);
+        f.setPosition( getPosX(), getPosY());
     }
-
 }
 
 //sets frame to frame selected to be the idle frames

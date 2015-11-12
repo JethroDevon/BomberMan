@@ -8,6 +8,7 @@ Bomb::Bomb(int _X, int _Y, int _F, int _T): Sprites("Blast.png",3 , 5){
     //initialises the objects member variables
     setPosX(_X);
     setPosY(_Y);
+    setPos(getPosX(), getPosY());
     setTicks(_T);
     setFlame(_F);
 }

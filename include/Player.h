@@ -55,8 +55,6 @@ class Player: public Sprites{
 
     private:
 
-        bool colliding;
-
         //player one two etc
         int playerID;
 

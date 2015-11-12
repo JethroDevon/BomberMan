@@ -16,7 +16,7 @@ Player::~Player(){
 
 void Player::movePlayer(){
 
-    if(!colliding){
+    if(getCollide()){
 
         switch(facing){
 
@@ -101,7 +101,8 @@ void Player::keyInput(){
         facing = none;
 
         //creates a new bomb, the offsets of 45 are to draw the bomb in the center of the screen
-        handler.push_back(new Bomb(getPosX() - 40 , getPosY() - 40, 5, 5));
+        handler.push_back(new Bomb(getPosX() - 40 , getPosY() -40 , 5, 5));
+
     }
 }
 

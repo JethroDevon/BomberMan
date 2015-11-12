@@ -4,6 +4,7 @@ Block::Block(bool _t, int _x, int _y, int _w, int _h): destruct(_t), Sprites("bl
 
     setXY(_x, _y);
     setWH( _w, _h);
+    setPos(getPosX(), getPosY());
 }
 
 
