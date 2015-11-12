@@ -34,12 +34,28 @@ int main(){
         // clear the window with black colour
         window.clear(sf::Color::Green);
 
+        //draws the arena (background)
         arena.drawBlocks();
+
+        for(auto &b: arena.handler){
+
+           //check to see if player is colliding with any block objects
+           if(pl.collission(b->getPosX() ,b->getPosX() + b->getWidth() , b->getPosY() , b->getPosY() + b->getHeight() )){
+
+            pl.setCollide(false);
+
+            //set back to smarter pointer mode
+
+            //use a velocity to move the player, if moving causes a collision then reverse the vel a bit
+
+            //this function must now be called in move, so collision data must be passed somehow
+
+            break;
+           }
+        }
 
         //draw player sprites
         pl.Draw();
-
-       // game.collisions(3,3);
 
         // end the current frame
         window.display();

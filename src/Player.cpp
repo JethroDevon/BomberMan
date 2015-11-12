@@ -7,7 +7,7 @@ Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4
     //sets base classes idle frame
     idle = 6;
     setPos( 100, 100);
-
+    setWH(20, 20);
 }
 
 Player::~Player(){
@@ -15,8 +15,6 @@ Player::~Player(){
 }
 
 void Player::movePlayer(){
-
-    if(getCollide()){
 
         switch(facing){
 
@@ -33,6 +31,7 @@ void Player::movePlayer(){
 
                 //move sprite up incrementally
                 movePos(0,-6);
+
                 break;
 
             case 2 :
@@ -62,7 +61,6 @@ void Player::movePlayer(){
                 movePos(6,0);
                 break;
         }
-    }
 }
 
 //detects key input and changes the value of the facing integer

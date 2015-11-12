@@ -7,8 +7,6 @@ Block::Block(bool _t, int _x, int _y, int _w, int _h): destruct(_t), Sprites("bl
     setPos(getPosX(), getPosY());
 }
 
-
-
 bool Block::getType(){
 
     return destruct;

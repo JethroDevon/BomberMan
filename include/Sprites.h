@@ -65,6 +65,8 @@ class Sprites{
 
         void loopMode(int, int);
 
+        int getFrameCount();
+
         void loopMode(bool, int, int);
 
         bool setImage();
@@ -73,7 +75,7 @@ class Sprites{
 
         void addFrames();
 
-        bool collision(Sprites);
+        bool collission(int, int, int, int);
 
         void setPosX(int);
 
@@ -110,6 +112,7 @@ class Sprites{
         bool getCollide();
 
         void setPos(int, int);
+
 
     private:
 
