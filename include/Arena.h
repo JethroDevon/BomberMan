@@ -20,7 +20,9 @@
 
 #include "Sprites.h"
 #include "Block.h"
+#include <fstream>
 #include <vector>
+#include <cstdlib>
 
 class Arena{
 
@@ -39,9 +41,15 @@ class Arena{
         //reference object of RenderWindow for draw function
         sf::RenderWindow &win;
 
-        void makeArena(int , int, int , int);
+        void makeArena(int , int);
 
         void drawBlocks();
+
+        void loadLevel(std::string);
+
+        //level integer public, networking protocol can return level type simply by
+        //getting level string
+        std::string level;
 
     private:
 };

@@ -8,26 +8,57 @@ Arena::Arena(sf::RenderWindow &_window): win(_window){
 
 Arena::~Arena(){
 
-    //callse destructor on each object in vector
+    //calls destructor on each object in vector
     handler.clear();
 }
 
 //this should make the blocks in the arena
-void Arena::makeArena(int arena_width, int arena_height, int block_width, int block_height){
+void Arena::makeArena(int block_width, int block_height){
 
-    for(int h = 0; h < arena_width; h++){
-        for(int w = 0; w < arena_height; w++){
+    //total number of blocks that the level will contain
+    int block_total = level.length();
 
-            if(w == 0 || h == 0 ) {
+    //this block will iterate through the string 'level' and return the present char
+    int present_block = 0;
 
-                handler.push_back(new Block(false ,w*25 , h*25, block_width, block_height));
-            }
+    //this will be the xposition to draw the block, it will multiply the block_width and
+    //keep track of the x position to draw the next block, it will be reset by \n char
+    int xGrid = 0;
+
+    //this will multiply by block height, it will track the position to draw the blocks in their y positions
+    //it will be multiplied by the \n char
+    int yGrid = 0;
+
+    //string type will manage the kind of block that must be drawn each iteration of the while loop
+    char type;
+
+    //loops for each char in string level until the end, the position of each string char will
+    //determine the position the co responding block will be on the map
+    while(present_block < block_total){
+
+       type = level[present_block++];
+
+        //draw a block if it exists
+        if(type == '0' || type == '1'){
+
+            //add block to array in this position, char is converted into either 1 or zero, the minus 48 is to remove ascii encoding
+            //that may not be set up in preferences, got to fix this ugly way later on
+            handler.push_back(new Block( ((int)type)-48 , xGrid * block_width, yGrid * block_height, block_width, block_height));
+        }
+
+        //increment grid by one each time a block in row yGrid is drawn
+        xGrid++;
+
+        //if new line is encountered
+        if(type == '\n'){
+
+            //rows are incremented
+            yGrid++;
+
+            //cols are reset
+            xGrid = 0;
         }
     }
-
-    //debug; single block for basic experementation
-    //handler.push_back(new Block(false ,150 , 100, block_width, block_height));
-
 }
 
 //this function draws all the blocks on the screen
@@ -37,4 +68,43 @@ void Arena::drawBlocks(){
 
         win.draw( f->returnBlock(f->getType()));
     }
+}
+
+//returns console message if level loaded successfully or not
+void Arena::loadLevel(std::string level_path){
+
+    //default flag to return is set to true, an error will set flag to true
+    bool loaded = false;
+
+    //if the while loop loops more than two hundred times the while loop will be broken and
+    //loaded will be set to false
+    int loopCount;
+
+    //loads text file
+    std::string line;
+	std::ifstream infile;
+	infile.open(level_path);
+
+	//checks state of file before level is made
+    loaded = infile.good();
+
+	//loop until stream returns end of file
+	while(!infile.eof() && loaded){
+
+        std::getline(infile, line);
+        level += line + "\n";
+        loopCount++;
+
+        if(loopCount < 200 ){
+
+            loaded = false;
+        }
+	}
+
+    //closes stream
+    infile.close();
+
+    //outputs a console message as to whether the level loaded, if it did, the console draws the level
+    //1 for success 0 for failure
+	std::cout<< "LEVEL " << level_path << " LOADED CODE: " << loaded << "\n\n" << level << std::endl;
 }

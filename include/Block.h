@@ -23,7 +23,7 @@ class Block: public Sprites{
 
     public:
 
-        Block(bool ,int , int , int , int );
+        Block(int ,int , int , int , int );
 
         //sets the position of the block
         void setBlock(int _x, int _y);

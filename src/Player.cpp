@@ -22,6 +22,7 @@ void Player::movePlayer(){
 
                 facing = none;
                 //nothing just yet, might have idle anim
+
                 break;
 
             case 1 :
@@ -30,7 +31,7 @@ void Player::movePlayer(){
                 loopMode(newFace(), 0, 6);
 
                 //move sprite up incrementally
-                movePos(0,-6);
+                movePos(getCollide(), 0, -6);
 
                 break;
 
@@ -40,7 +41,7 @@ void Player::movePlayer(){
                 loopMode(newFace(), 6, 12);
 
                 //move sprite down incrementally
-                movePos(0,6);
+                movePos(getCollide(), 0, 6);
                 break;
 
             case 3 :
@@ -49,7 +50,7 @@ void Player::movePlayer(){
                 loopMode(newFace(), 12, 18);
 
                 //move sprite left incrementally
-                movePos(-6,0);
+                movePos(getCollide(), -6, 0);
                 break;
 
             case 4 :
@@ -58,7 +59,7 @@ void Player::movePlayer(){
                 loopMode(newFace(), 18, 24);
 
                 //move sprite right incrementally
-                movePos(6,0);
+                movePos(getCollide(), 6, 0);
                 break;
         }
 }

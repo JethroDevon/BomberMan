@@ -1,9 +1,5 @@
-Basic BomberMan Game,
- presently working on 
+Basic BomberMan Game TO-DO list:
 
-collisions,
-
-level building, 
 
 bomb collisions, 
 
@@ -15,11 +11,15 @@ bomb blast animation and collision,
 
 bomb timer,
 
+debug collisions and movement
+
 hud
 
 gui
 
 pickups
+
+polishing
 
 NETWORKING OOO
 

@@ -35,7 +35,6 @@
 #include <string>
 #include <iostream>
 #include <vector>
-
 class Sprites{
 
     public:
@@ -87,7 +86,7 @@ class Sprites{
 
         void idleFrame();
 
-        void movePos(int, int);
+        void movePos(bool, int, int);
 
         sf::Sprite showFrame();
 

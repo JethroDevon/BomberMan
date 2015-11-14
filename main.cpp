@@ -13,7 +13,8 @@ int main(){
 
     Player pl(window);
     Arena arena(window);
-    arena.makeArena(25, 25, 25, 25);
+    arena.loadLevel("levels/normal.txt");
+    arena.makeArena(25, 25);
 
     // run the program as long as the window is open
     while (window.isOpen()){
@@ -42,13 +43,11 @@ int main(){
            //check to see if player is colliding with any block objects
            if(pl.collission(b)){
 
-            //set back to smarter pointer mode
+                pl.setCollide(true);
+                break;
+           }else{
 
-            //use a velocity to move the player, if moving causes a collision then reverse the vel a bit
-
-            //this function must now be called in move, so collision data must be passed somehow
-
-            break;
+                pl.setCollide(false);
            }
         }
 

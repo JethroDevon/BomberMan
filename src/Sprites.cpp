@@ -1,8 +1,16 @@
 #include "Sprites.h"
-//must use a static loading class that deep copies textures!!!
+///must use a static loading class that deep copies textures!!!
 
 
-//constructor
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+////            -SPRITES CONSTRUCTORS FOR SINGLE IMAGE SPRITE AND sf::SPRITE LOOP HANDLER-             ////
+////                                                                                                   ////
+////      each time an image is loaded something is output to the console this way     ////////////////////
+// I can gage just how efficient my code is by how many expensive tasks are recorded in the console.  /////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                            ///////////////////////////////
+                                                                                                       ////
+//constructor                                                                                           ///
 Sprites::Sprites(std::string _path): path( _path){
 
  //if image is successfully loaded
@@ -37,9 +45,13 @@ Sprites::Sprites(std::string _path, int _rows, int _cols): path( _path){
         addFrames();
      }else{
 
-        std::cout << "Image @   " << path << " failed." << std::endl;
-     }
-}
+        std::cout << "Image @   " << path << " failed." << std::endl;                               ////
+     }                                                                                              ////
+}                                                                                                   ////
+                                                                    ////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 //destructor
 Sprites::~Sprites(){
@@ -219,12 +231,17 @@ int Sprites::getHeight(){
     return sHeight;
 }
 
+
+///TO-DO: Return a bool and handle in error safe logic.
 //this overloaded version of above only changes direction
-//if true is in the first argument
+//if true is in the first argument, this is to manage collisions
+//and sprites not being in new states
 void Sprites::loopMode(bool b, int sa, int so){
 
     if(b){
-        //if new arguments would cause a crash set loop back to false
+
+        //if new arguments would cause out of bounds errors set loop back to default
+        //values instead
         if((sa < 0 || sa > total_frames )|| (so < 1 || so > total_frames)){
 
             total_frames = (rows*cols)-1;
@@ -254,9 +271,15 @@ void Sprites::nextFrame(){
 }
 
 //moves all the sprites draw positions
-void Sprites::movePos(int _x, int _y){
+void Sprites::movePos(bool c, int _x, int _y){
 
-    setXY( getPosX() +_x, getPosY() +_y);
+    if(!c){
+
+        setXY( getPosX() + _x , getPosY() + _y);
+    }else{
+
+        setXY( getPosX() +- _x , getPosY() +- _y);
+    }
 
     //loops through each sprite
     for(auto &f: frames){
