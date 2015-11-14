@@ -1,12 +1,16 @@
 #include "Player.h"
 
 //initialise window object and set sprites to be a base class of player, this way
-//Sprites functions can be used by player class
+//Sprites functions can be used by player class, 4 and 6 represent the rows and columns of the amount of images in the sprite contact sheet
 Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4, 6){
 
     //sets base classes idle frame
     idle = 6;
-    setPos( 100, 100);
+
+    //for now start pos will be set here
+    setPos( 26, 26);
+
+    //sets width and height of player
     setWH(20, 20);
 }
 

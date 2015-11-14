@@ -1,5 +1,5 @@
 #include "Sprites.h"
-///must use a static loading class that deep copies textures!!!
+///must use a static loading class that copies textures instead of loading images lots at start!!!
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////

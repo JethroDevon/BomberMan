@@ -8,9 +8,10 @@ int main(){
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "BOMBER MAN");
 
+    //setting frame rate, might change this to a function that will regulate framerate accross devoces
     window.setFramerateLimit(12);
 
-
+    //temp initialisers for testing
     Player pl(window);
     Arena arena(window);
     arena.loadLevel("levels/normal.txt");

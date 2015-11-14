@@ -1,6 +1,11 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
+#include <SFML/Graphics.hpp>
+#include <string>
+#include <iostream>
+#include <vector>
+#include <time.h>
 
 // ----------------------------------------------------------------------
 //                             |\      /|        _                       |
@@ -31,10 +36,7 @@
 // It could also contain functions for applying effects to the sprites   |
 // ----------------------------------------------------------------------
 
-#include <SFML/Graphics.hpp>
-#include <string>
-#include <iostream>
-#include <vector>
+
 class Sprites{
 
     public:

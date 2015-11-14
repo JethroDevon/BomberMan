@@ -12,7 +12,9 @@ Arena::~Arena(){
     handler.clear();
 }
 
-//this should make the blocks in the arena
+//this should make the blocks in the arena, its a cumbersome and ugly  bit of code
+//however I want to be able to handle more unusual data later on with the possibility of
+//a level generator or level logic of some kind
 void Arena::makeArena(int block_width, int block_height){
 
     //total number of blocks that the level will contain
@@ -44,6 +46,26 @@ void Arena::makeArena(int block_width, int block_height){
             //add block to array in this position, char is converted into either 1 or zero, the minus 48 is to remove ascii encoding
             //that may not be set up in preferences, got to fix this ugly way later on
             handler.push_back(new Block( ((int)type)-48 , xGrid * block_width, yGrid * block_height, block_width, block_height));
+
+        //else if a three chances of being a destructible block or a solid block
+        }else if(type == '3'){
+
+           //seeds the next random number based on the time function
+           srand (present_block+time(0));
+
+           //creates a random number from one to ten, the + 1 is to avoid returning 0
+           int temp = rand()%15;
+
+           //chance of not initialising a block at all
+           if(temp > 3 && temp < 10){
+
+                //push back the randomly chosen solid or destructible block
+                handler.push_back(new Block(1 , xGrid * block_width, yGrid * block_height, block_width, block_height));
+           }else if(temp <= 3){
+
+                //push back the randomly chosen solid or destructible block
+                handler.push_back(new Block(0 , xGrid * block_width, yGrid * block_height, block_width, block_height));
+           }
         }
 
         //increment grid by one each time a block in row yGrid is drawn

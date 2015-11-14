@@ -1,15 +1,12 @@
 Basic BomberMan Game TO-DO list:
 
+bomb timer,
 
 bomb collisions, 
 
-//submit around here!!!!
-
-block colliding with bomb blast,
-
 bomb blast animation and collision,
 
-bomb timer,
+block colliding with bomb blast,
 
 debug collisions and movement
 
@@ -21,7 +18,9 @@ pickups
 
 polishing
 
-NETWORKING OOO
+multiple keyboard players
+
+networked players
 
 polishing
 
