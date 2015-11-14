@@ -75,7 +75,7 @@ class Sprites{
 
         void addFrames();
 
-        bool collission(int, int, int, int);
+        bool collission(Sprites *);
 
         void setPosX(int);
 

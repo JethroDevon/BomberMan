@@ -128,10 +128,11 @@ void Sprites::loopMode(int sa, int so){
 
 //this function returns true if this sprites object that is passed into args
 //collides with the sprite object that owns this function, colSprite is from 'colliding sprite' together
-bool Sprites::collission(int left, int right, int top, int bottom){
+bool Sprites::collission(Sprites * sp){
 
     //if sprite is not above below left or right of the colliding sprite then return true, else false
-    if( getPosX() + getWidth() > left && getPosX() < right && getPosY() + getHeight() > top && getPosY() <  bottom){
+    if( getPosX() + getWidth() > sp->getPosX() && getPosX() < sp->getPosX() + sp->getWidth() &&
+       getPosY() + getHeight() > sp->getPosY() && getPosY() <  sp->getPosY() + sp->getHeight()){
 
         return true;
     }else{

@@ -37,12 +37,10 @@ int main(){
         //draws the arena (background)
         arena.drawBlocks();
 
-        for(auto &b: arena.handler){
+        for(auto *b: arena.handler){
 
            //check to see if player is colliding with any block objects
-           if(pl.collission(b->getPosX() ,b->getPosX() + b->getWidth() , b->getPosY() , b->getPosY() + b->getHeight() )){
-
-            pl.setCollide(false);
+           if(pl.collission(b)){
 
             //set back to smarter pointer mode
 
