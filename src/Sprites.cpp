@@ -59,7 +59,8 @@ Sprites::~Sprites(){
     frames.clear();
 }
 
-//sets some values of this class's sprite object
+//initialises values for a single un animated sprite texture to be used
+//from the image loaded in the constructor
 void Sprites::setSprite(){
 
     //total_frames = (rows * cols) - 1;

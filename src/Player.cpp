@@ -12,99 +12,104 @@ Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4
 
     //sets width and height of player
     setWH(20, 20);
+
+    //default facing value draws players facing the right
+    facing = right;
+
+    //this sets the animation to draw the loop where the player is facing right
+    //set sprite animation for walking left
+    loopMode(newFace(), 18, 23);
 }
 
 Player::~Player(){
     //dtor
 }
 
-void Player::movePlayer(){
-
-        switch(facing){
-
-            case 0 :
-
-                facing = none;
-                //nothing just yet, might have idle anim
-
-                break;
-
-            case 1 :
-
-                //set sprite animation for walking up
-                loopMode(newFace(), 0, 6);
-
-                //move sprite up incrementally
-                movePos(getCollide(), 0, -6);
-
-                break;
-
-            case 2 :
-
-                //set sprite animation for walking down
-                loopMode(newFace(), 6, 12);
-
-                //move sprite down incrementally
-                movePos(getCollide(), 0, 6);
-                break;
-
-            case 3 :
-
-                 //set sprite animation for walking left
-                loopMode(newFace(), 12, 18);
-
-                //move sprite left incrementally
-                movePos(getCollide(), -6, 0);
-                break;
-
-            case 4 :
-
-                 //set sprite animation for walking right
-                loopMode(newFace(), 18, 24);
-
-                //move sprite right incrementally
-                movePos(getCollide(), 6, 0);
-                break;
-        }
-}
-
-//detects key input and changes the value of the facing integer
+//detects key input and changes the value of the facing integer, then moves the player
+//also manages key inputto create a bomb
 void Player::keyInput(){
 
-    //get direction character is facing
-    getFace();
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 
-        // left key is pressed: move our character
+        //up key is pressed: move character up
         facing = up;
+
+         //set sprite animation for walking up
+        loopMode(newFace(), 0, 6);
+
+        //move sprite up incrementally
+        movePos(getCollide(), 0, -6);
+
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 
-        // left key is pressed: move our character
+        // left key is pressed: move character
         facing = down;
+
+        //set sprite animation for walking down
+        loopMode(newFace(), 6, 12);
+
+        //move sprite down incrementally
+        movePos(getCollide(), 0, 6);
+
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 
-        // left key is pressed: move our character
+        // left key is pressed: move character
         facing = left;
+
+         //set sprite animation for walking left
+        loopMode(newFace(), 12, 18);
+
+        //move sprite left incrementally
+        movePos(getCollide(), -6, 0);
+
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 
-        // left key is pressed: move our character
+        // left key is pressed: move character
         facing = right;
-    }else{
 
-        //set direction to move player to none to stop player moving
-        facing = none;
+        //set sprite animation for walking left
+        loopMode(newFace(), 18, 23);
+
+        //move sprite left incrementally
+        movePos(getCollide(), 6, 0);
     }
 
     //this is seperate from the main block so player can walk and lay bombs
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 
+        //checks facing enum value to create a bomb in front of the player depending on
+        //which way its facing
+        switch(getFace()){
 
-        //add a new bomb to array, default bomb settings present for now
-        facing = none;
+            case 1:
 
-        //creates a new bomb, the offsets of 45 are to draw the bomb in the center of the screen
-        handler.push_back(new Bomb(getPosX() - 40 , getPosY() -40 , 5, 5));
+                 //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
+                 //the area above or below
+                handler.push_back(new Bomb(getPosX() -40, getPosY()-60, 5, 5));
+                break;
+
+            case 2:
+
+                 //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
+                 //the area above or below
+                handler.push_back(new Bomb(getPosX() -40 , getPosY() -20 , 5, 5));
+                break;
+
+            case 3:
+
+                 //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
+                 //the area above or below
+                handler.push_back(new Bomb(getPosX() -60 , getPosY() -40 , 5, 5));
+                break;
+
+             case 4:
+
+                 //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
+                 //the area above or below
+                handler.push_back(new Bomb(getPosX() -20, getPosY() -40, 5, 5));
+                break;
+        }
 
     }
 }
@@ -117,7 +122,6 @@ void Player::keyInput(){
                                                                                                        //
                                 keyInput();                                                            //
                                 drawBombs();                                                           //
-                                movePlayer();                                                          //
                                 win.draw(getNext());                                                   //
                             }                                                                          //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
