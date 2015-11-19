@@ -17,6 +17,7 @@
 
 #include "Sprites.h"
 #include "Bomb.h"
+#include "Arena.h"
 #include <vector>
 
 //set sprite class to be base class of player for acces to animation functions
@@ -24,7 +25,7 @@ class Player: public Sprites{
 
     public:
 
-        Player(sf::RenderWindow &_window);
+        Player(sf::RenderWindow &_window, Arena &_arenareference);
 
         ~Player();
 
@@ -33,6 +34,9 @@ class Player: public Sprites{
 
          //reference object of RenderWindow for draw function
         sf::RenderWindow &win;
+
+        //reference to arena object
+        Arena &arenareference;
 
         //this remembers last direction or change in direction, also hand for switch
         enum direction{none, up, down, left , right};
@@ -53,6 +57,16 @@ class Player: public Sprites{
 
         void drawBombs();
 
+        bool arenaCheck(int, int, int, int);
+
+        void arenaCheck();
+
+        //sets arena reference pointer to arena
+        void setArena(Arena arena);
+
+        //returns reference to arena for operations
+        Arena &getArena();
+
     private:
 
         //player one two etc
@@ -65,6 +79,7 @@ class Player: public Sprites{
 
         //player may be able to customise their name
         std::string playerName;
+
 };
 
 #endif // PLAYER_H

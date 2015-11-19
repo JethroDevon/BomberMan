@@ -1,8 +1,10 @@
 #include "Player.h"
 
 //initialise window object and set sprites to be a base class of player, this way
-//Sprites functions can be used by player class, 4 and 6 represent the rows and columns of the amount of images in the sprite contact sheet
-Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4, 6){
+//Sprites functions can be used by player class, 4 and 6 represent the rows and columns of the amount of images in the sprite contact sheet,
+//arenareference is a reference to the arena the player is in, the name is long winded I think it is moreimportant to be clear as to
+//what pointers and references are doing
+Player::Player(sf::RenderWindow &_window, Arena &_arenareference): win(_window), arenareference(_arenareference), Sprites("player.png", 4, 6){
 
     //sets base classes idle frame
     idle = 6;
@@ -122,7 +124,8 @@ void Player::keyInput(){
                                                                                                        //
                                 keyInput();                                                            //
                                 drawBombs();                                                           //
-                                win.draw(getNext());                                                   //
+                                win.draw(getNext());
+                                arenaCheck();                                                 //
                             }                                                                          //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -154,5 +157,39 @@ void Player::drawBombs(){
         //draws image function referred to frame in sprites
         win.draw( f->bombFrame());
     }
+}
+
+//checks this functions copy of arena to see if the dimensions for
+//a bounding box ( x y width and height) would collide
+bool Player::arenaCheck(int x, int y, int w, int h){
+
+
+}
+
+//overloaded version of above takes a sprite as an argument to check for a collision
+void Player::arenaCheck(){
+
+    for(auto &b: arenareference.handler){
+
+           //check to see if player is colliding with any block objects
+           if(collission(b)){
+
+                setCollide(true);
+                break;
+           }else{
+
+                setCollide(false);
+           }
+    }
+}
+
+void Player::setArena(Arena arena){
+
+}
+
+
+Arena &Player::getArena(){
+
+    return arenareference;
 }
 

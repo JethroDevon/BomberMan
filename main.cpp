@@ -11,11 +11,13 @@ int main(){
     //setting frame rate, might change this to a function that will regulate framerate accross devoces
     window.setFramerateLimit(12);
 
-    //temp initialisers for testing
-    Player pl(window);
+    //--ARENA AND SETUP FUNCTIONS MUST BE CREATED BEFORE PLAYER--
     Arena arena(window);
     arena.loadLevel("levels/normal.txt");
     arena.makeArena(25, 25);
+
+    //temp initialisers for testing
+    Player pl(window, arena);
 
     // run the program as long as the window is open
     while (window.isOpen()){
@@ -39,18 +41,8 @@ int main(){
         //draws the arena (background)
         arena.drawBlocks();
 
-        for(auto *b: arena.handler){
-
-           //check to see if player is colliding with any block objects
-           if(pl.collission(b)){
-
-                pl.setCollide(true);
-                break;
-           }else{
-
-                pl.setCollide(false);
-           }
-        }
+        //points changes to arena to stored copy in player for checking against collisions
+       // pl.setArena();
 
         //draw player sprites
         pl.Draw();
