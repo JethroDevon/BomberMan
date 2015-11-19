@@ -89,6 +89,7 @@ void Player::keyInput(){
                  //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
                  //the area above or below
                 handler.push_back(new Bomb(getPosX() -40, getPosY()-60, 5, 5));
+
                 break;
 
             case 2:
@@ -113,6 +114,12 @@ void Player::keyInput(){
                 break;
         }
 
+        //if the newly created bomb is colliding with a block delete it
+        if(arenaCheck(*handler.back())){
+
+            handler.pop_back();
+
+        }
     }
 }
 

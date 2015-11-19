@@ -52,11 +52,16 @@ Sprites::Sprites(std::string _path, int _rows, int _cols): path( _path){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
 //destructor
 Sprites::~Sprites(){
 
     frames.clear();
+}
+
+//self destructor for use in emergencies
+void Sprites::destroy(){
+
+    delete this;
 }
 
 //initialises values for a single un animated sprite texture to be used

@@ -114,6 +114,8 @@ class Sprites{
 
         void setPos(int, int);
 
+        void destroy();
+
 
     private:
 
