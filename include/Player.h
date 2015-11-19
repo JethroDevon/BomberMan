@@ -25,18 +25,19 @@ class Player: public Sprites{
 
     public:
 
-        Player(sf::RenderWindow &_window, Arena &_arenareference);
+        Player(sf::RenderWindow &_window);
 
         ~Player();
 
-        //players bomb handling class
+        //players bomb handling class is a set of pointers so
+        //changes can be made to the objects dynamically
          std::vector <Bomb* > handler;
 
          //reference object of RenderWindow for draw function
         sf::RenderWindow &win;
 
         //reference to arena object
-        Arena &arenareference;
+        Arena *arenareference;
 
         //this remembers last direction or change in direction, also hand for switch
         enum direction{none, up, down, left , right};
@@ -57,15 +58,10 @@ class Player: public Sprites{
 
         void drawBombs();
 
-        bool arenaCheck(int, int, int, int);
-
-        void arenaCheck();
+        bool arenaCheck(Sprites);
 
         //sets arena reference pointer to arena
-        void setArena(Arena arena);
-
-        //returns reference to arena for operations
-        Arena &getArena();
+        void setArena(Arena &arena);
 
     private:
 

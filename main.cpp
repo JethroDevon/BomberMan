@@ -17,7 +17,10 @@ int main(){
     arena.makeArena(25, 25);
 
     //temp initialisers for testing
-    Player pl(window, arena);
+    Player pl(window);
+
+    //points changes to arena to stored copy in player for checking against collisions
+    pl.setArena(arena);
 
     // run the program as long as the window is open
     while (window.isOpen()){
@@ -41,8 +44,8 @@ int main(){
         //draws the arena (background)
         arena.drawBlocks();
 
-        //points changes to arena to stored copy in player for checking against collisions
-       // pl.setArena();
+        //checks pl collisions against the arena and if there are any sets them to true
+        pl.setCollide(pl.arenaCheck(pl));
 
         //draw player sprites
         pl.Draw();
