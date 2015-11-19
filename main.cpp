@@ -44,8 +44,15 @@ int main(){
         //draws the arena (background)
         arena.drawBlocks();
 
-        //checks pl collisions against the arena and if there are any sets them to true
+        //checks pl collisions against the arena and if there are any sets them to true, is called here for all players to
+        //check and to take advantage of arenaCheck functions args
         pl.setCollide(pl.arenaCheck(pl));
+
+        //sets players against collisions with all players bombs  -will be set here to check against all players-
+        for(auto &b : pl.handler){
+
+         //   pl.setCollide(pl.collission(b));
+        }
 
         //draw player sprites
         pl.Draw();

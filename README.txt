@@ -17,12 +17,12 @@ put a comment box to isolate it out for future programs or create a template cla
 
 main loop set up to run temporary code, will only be similar, intend to keep as much code out of main as possible.
 
+created bomb in front of player, use facing enum in switch, collision block in front of player dissalows creating bomb overlapping block
+
 					             TO-DO list:
 
 Image manager: a static image loader class can load all textures once and pass required textures into sprite constructor, this will stop loading an image each time
 a new block is created at the beginning or a bomb is dynamically created.
-
-bomb creation: create bomb in front of player, use facing enum in switch, collision block in front of player dissalows creating bomb overlapping block
 
 bomb timer: include time.h , get ticks, pickups will tweak bomb timers even freeze so lotsf of set and get functions
 
@@ -34,7 +34,7 @@ bomb collisions must be passed by pointer
 
 block colliding with bomb blast: this destroys block and stops further creation of blasts in this direction, pass pointers through collision loop
 
-debug collisions and movement: might have to change movement architecture as is buggy in movement and animation when player collides
+debug bounding boxes and movement: might have to change movement architecture as is buggy in movement and animation when player collides
 
 hud, add minimum displayable stuff, use mouse hover to bring about options and pause in game
 
