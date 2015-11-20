@@ -115,10 +115,13 @@ void Player::keyInput(){
         }
 
         //if the newly created bomb is colliding with a block delete it
-        if(arenaCheck(*handler.back())){
+        if(arenaCheck(&handler.back())){
 
-            handler.pop_back();
+            //destroy the object at the back of the list by calling its destructor
+            handler.back().destroy();
 
+            //remove the pointer at the back of handler
+            handler.back().erase();
         }
     }
 }
