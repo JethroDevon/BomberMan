@@ -19,6 +19,7 @@
 #include "Bomb.h"
 #include "Arena.h"
 #include <vector>
+#include <ctime>
 
 //set sprite class to be base class of player for acces to animation functions
 class Player: public Sprites{
@@ -63,6 +64,11 @@ class Player: public Sprites{
         //sets arena reference pointer to arena
         void setArena(Arena &arena);
 
+        //returns true if time in args has passed since last call
+        bool getTicks(double);
+
+        std::clock_t startTime;
+
     private:
 
         //player one two etc
@@ -75,7 +81,6 @@ class Player: public Sprites{
 
         //player may be able to customise their name
         std::string playerName;
-
 };
 
 #endif // PLAYER_H

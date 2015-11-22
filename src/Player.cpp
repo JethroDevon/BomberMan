@@ -19,6 +19,9 @@ Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4
     //this sets the animation to draw the loop where the player is facing right
     //set sprite animation for walking left
     loopMode(newFace(), 18, 23);
+
+    //updates time passed since program started
+    startTime = std::clock();
 }
 
 Player::~Player(){
@@ -27,8 +30,25 @@ Player::~Player(){
    delete arenareference;
 }
 
+//this function returns true if double in args has passed since hte last time the function was called or the start of the program
+bool Player::getTicks(double ticksPassed){
+
+    std::cout<<((std::clock() - startTime) /(double) CLOCKS_PER_SEC)<<std::endl;
+
+    //updates ticks and returns true if time in args has passed
+    if(((std::clock() - startTime) /(double) CLOCKS_PER_SEC) > ticksPassed){
+
+        startTime = std::clock();
+        return true;
+    //returns false if time has not passed
+    }else{
+
+        return false;
+    }
+}
+
 //detects key input and changes the value of the facing integer, then moves the player
-//also manages key inputto create a bomb
+//also manages key input to create a bomb
 void Player::keyInput(){
 
 
@@ -77,51 +97,56 @@ void Player::keyInput(){
         movePos(getCollide(), 6, 0);
     }
 
+
     //this is seperate from the main block so player can walk and lay bombs
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 
-        //checks facing enum value to create a bomb in front of the player depending on
-        //which way its facing
-        switch(getFace()){
+         //dont listen to key press if half a second has not passed
+         if(getTicks(0.5)){
 
-            case 1:
+            //checks facing enum value to create a bomb in front of the player depending on
+            //which way its facing
+            switch(getFace()){
 
-                 //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
-                 //the area above or below
-                handler.push_back(new Bomb(getPosX() -40, getPosY()-60, 5, 5));
+                case 1:
 
-                break;
+                     //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
+                     //the area above or below
+                    handler.push_back(new Bomb(getPosX() -40, getPosY()-60, 5, 5));
 
-            case 2:
+                    break;
 
-                 //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
-                 //the area above or below
-                handler.push_back(new Bomb(getPosX() -40 , getPosY() -20 , 5, 5));
-                break;
+                case 2:
 
-            case 3:
+                     //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
+                     //the area above or below
+                    handler.push_back(new Bomb(getPosX() -40 , getPosY() -20 , 5, 5));
+                    break;
 
-                 //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
-                 //the area above or below
-                handler.push_back(new Bomb(getPosX() -60 , getPosY() -40 , 5, 5));
-                break;
+                case 3:
 
-             case 4:
+                     //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
+                     //the area above or below
+                    handler.push_back(new Bomb(getPosX() -60 , getPosY() -40 , 5, 5));
+                    break;
 
-                 //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
-                 //the area above or below
-                handler.push_back(new Bomb(getPosX() -20, getPosY() -40, 5, 5));
-                break;
-        }
+                 case 4:
 
-        //if the newly created bomb is colliding with a block delete it
-        if(arenaCheck(&handler.back())){
+                     //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
+                     //the area above or below
+                    handler.push_back(new Bomb(getPosX() -20, getPosY() -40, 5, 5));
+                    break;
+            }
 
-            //destroy the object at the back of the list by calling its destructor
-            handler.back().destroy();
+            //if the newly created bomb is colliding with a block delete it
+            if(arenaCheck(*handler.back())){
 
-            //remove the pointer at the back of handler
-            handler.back().erase();
+                //destroy the object at the back of the list by calling its destructor
+                handler.back()->destroy();
+
+                //remove the pointer at the back of handler
+                handler.pop_back();
+            }
         }
     }
 }

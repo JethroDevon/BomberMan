@@ -16,7 +16,7 @@ int main(){
     arena.loadLevel("levels/normal.txt");
     arena.makeArena(25, 25);
 
-    //temp initialisers for testing
+    //temp initialisers for testinger
     Player pl(window);
 
     //points changes to arena to stored copy in player for checking against collisions
