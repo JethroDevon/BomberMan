@@ -33,8 +33,6 @@ Player::~Player(){
 //this function returns true if double in args has passed since hte last time the function was called or the start of the program
 bool Player::getTicks(double ticksPassed){
 
-    std::cout<<((std::clock() - startTime) /(double) CLOCKS_PER_SEC)<<std::endl;
-
     //updates ticks and returns true if time in args has passed
     if(((std::clock() - startTime) /(double) CLOCKS_PER_SEC) > ticksPassed){
 
@@ -113,7 +111,6 @@ void Player::keyInput(){
                      //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
                      //the area above or below
                     handler.push_back(new Bomb(getPosX() -40, getPosY()-60, 5, 5));
-
                     break;
 
                 case 2:
@@ -136,6 +133,7 @@ void Player::keyInput(){
                      //the area above or below
                     handler.push_back(new Bomb(getPosX() -20, getPosY() -40, 5, 5));
                     break;
+
             }
 
             //if the newly created bomb is colliding with a block delete it

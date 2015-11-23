@@ -51,7 +51,7 @@ int main(){
         //sets players against collisions with all players bombs  -will be set here to check against all players-
         for(auto &b : pl.handler){
 
-         //   pl.setCollide(pl.collission(b));
+            pl.setCollide(pl.collission(b));
         }
 
         //draw player sprites
