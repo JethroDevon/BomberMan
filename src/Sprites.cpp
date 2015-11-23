@@ -23,6 +23,9 @@ Sprites::Sprites(std::string _path): path( _path){
 
     std::cout << "Image @   " << path << " failed." << std::endl;
  }
+
+ //updates time passed since program started
+ startTime = std::clock();
 }
 
 //overloaded constructor for contact sheets with multiple frames on them
@@ -42,11 +45,14 @@ Sprites::Sprites(std::string _path, int _rows, int _cols): path( _path){
         total_frames = (rows * cols);
 
         //breaks down image into frames in vector of sprites
-        addFrames();
-     }else{
-
+        addFrames();                                                                                ////
+     }else{                                                                                         ////
+                                                                                                    ////
         std::cout << "Image @   " << path << " failed." << std::endl;                               ////
      }                                                                                              ////
+                                                                                                    ////
+    //updates time passed since program started                                                     ////
+    startTime = std::clock();                                                                       ////
 }                                                                                                   ////
                                                                     ////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,6 +159,21 @@ bool Sprites::collission(Sprites * sp){
        getPosY() + getHeight() > sp->getPosY() && getPosY() <  sp->getPosY() + sp->getHeight()){
 
         return true;
+    }else{
+
+        return false;
+    }
+}
+
+//this function returns true if double in args has passed since hte last time the function was called or the start of the program
+bool Sprites::getTicks(double ticksPassed){
+
+    //updates ticks and returns true if time in args has passed
+    if(((std::clock() - startTime) /(double) CLOCKS_PER_SEC) > ticksPassed){
+
+        startTime = std::clock();
+        return true;
+    //returns false if time has not passed
     }else{
 
         return false;

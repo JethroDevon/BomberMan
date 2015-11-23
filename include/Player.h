@@ -64,11 +64,6 @@ class Player: public Sprites{
         //sets arena reference pointer to arena
         void setArena(Arena &arena);
 
-        //returns true if time in args has passed since last call
-        bool getTicks(double);
-
-        std::clock_t startTime;
-
     private:
 
         //player one two etc

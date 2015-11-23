@@ -20,29 +20,12 @@ Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4
     //set sprite animation for walking left
     loopMode(newFace(), 18, 23);
 
-    //updates time passed since program started
-    startTime = std::clock();
 }
 
 Player::~Player(){
 
    //on the destruction of player the pointer to the arena
    delete arenareference;
-}
-
-//this function returns true if double in args has passed since hte last time the function was called or the start of the program
-bool Player::getTicks(double ticksPassed){
-
-    //updates ticks and returns true if time in args has passed
-    if(((std::clock() - startTime) /(double) CLOCKS_PER_SEC) > ticksPassed){
-
-        startTime = std::clock();
-        return true;
-    //returns false if time has not passed
-    }else{
-
-        return false;
-    }
 }
 
 //detects key input and changes the value of the facing integer, then moves the player
@@ -184,10 +167,17 @@ int Player::getFace(){
 void Player::drawBombs(){
 
     //loops through the handler array that contains an array of bombs that belong to player
+    //loops through pointer types so as to be able to delete the actual pointer in the vector also
     for(auto f: handler){
 
         //draws image function referred to frame in sprites
         win.draw( f->bombFrame());
+
+        if(f->getUsed()){
+
+            //think there was a erase if x situation marco pointed out once
+            handler.erase();
+        }
     }
 }
 

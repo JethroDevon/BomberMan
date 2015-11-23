@@ -116,6 +116,11 @@ class Sprites{
 
         void destroy();
 
+         //returns true if time in args has passed since last call
+        bool getTicks(double);
+
+        std::clock_t startTime;
+
 
     private:
 
