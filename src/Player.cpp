@@ -168,16 +168,16 @@ void Player::drawBombs(){
 
     //loops through the handler array that contains an array of bombs that belong to player
     //loops through pointer types so as to be able to delete the actual pointer in the vector also
-    for(auto f: handler){
+    for(auto sprt: handler){
 
         //draws image function referred to frame in sprites
-        win.draw( f->bombFrame());
+        win.draw( sprt->bombFrame());
 
-        if(f->getUsed()){
+        auto it = std::remove_if( handler.begin(), handler.end(), [this](Sprites spt)){
 
-            //think there was a erase if x situation marco pointed out once
-            handler.erase();
+            return spt.getUsed();
         }
+        handler.pop_back();
     }
 }
 

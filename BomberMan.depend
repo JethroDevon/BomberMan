@@ -784,26 +784,27 @@
 	<string>
 	<iostream>
 
-1448022348 source:c:\users\jethro\desktop\documents\bomberman\main.cpp
+1448370864 source:c:\users\jethro\desktop\documents\bomberman\main.cpp
 	<SFML\Graphics.hpp>
 	<Player.h>
 	<Arena.h>
 	<Game.h>
 
-1448022348 c:\users\jethro\desktop\documents\bomberman\include\player.h
+1448370864 c:\users\jethro\desktop\documents\bomberman\include\player.h
 	"Sprites.h"
 	"Bomb.h"
 	"Arena.h"
 	<vector>
+	<ctime>
 
-1448022348 c:\users\jethro\desktop\documents\bomberman\include\sprites.h
-	<SFML/Graphics.hpp>
+1448380121 c:\users\jethro\desktop\documents\bomberman\include\sprites.h
+	<Graphics.hpp>
 	<string>
 	<iostream>
 	<vector>
 	<time.h>
 
-1448022348 c:\users\jethro\desktop\documents\bomberman\include\bomb.h
+1448370864 c:\users\jethro\desktop\documents\bomberman\include\bomb.h
 	"Sprites.h"
 
 1448022348 c:\users\jethro\desktop\documents\bomberman\include\arena.h
@@ -826,7 +827,7 @@
 1448022348 source:c:\users\jethro\desktop\documents\bomberman\src\block.cpp
 	"Block.h"
 
-1448022348 source:c:\users\jethro\desktop\documents\bomberman\src\bomb.cpp
+1448370864 source:c:\users\jethro\desktop\documents\bomberman\src\bomb.cpp
 	"Bomb.h"
 
 1448022348 source:c:\users\jethro\desktop\documents\bomberman\src\hud.cpp
@@ -839,6 +840,9 @@
 
 1448022348 c:\users\jethro\desktop\documents\bomberman\include\powerup.h
 
-1448022348 source:c:\users\jethro\desktop\documents\bomberman\src\sprites.cpp
+1448370864 source:c:\users\jethro\desktop\documents\bomberman\src\sprites.cpp
 	"Sprites.h"
+
+1448370864 source:c:\users\jethro\desktop\documents\bomberman\src\player.cpp
+	"Player.h"
 
