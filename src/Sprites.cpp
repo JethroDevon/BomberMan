@@ -61,6 +61,8 @@ Sprites::Sprites(std::string _path, int _rows, int _cols): path( _path){
 //destructor
 Sprites::~Sprites(){
 
+    //error checking string
+    std::cout<<" a sprite has been destroyed"<<std::endl;
     frames.clear();
 }
 

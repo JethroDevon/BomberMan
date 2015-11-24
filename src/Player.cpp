@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <algorithm>
 
 //initialise window object and set sprites to be a base class of player, this way
 //Sprites functions can be used by player class, 4 and 6 represent the rows and columns of the amount of images in the sprite contact sheet
@@ -173,11 +174,15 @@ void Player::drawBombs(){
         //draws image function referred to frame in sprites
         win.draw( sprt->bombFrame());
 
-        auto it = std::remove_if( handler.begin(), handler.end(), [this](Sprites spt)){
+        //this function will assign the iterator to be the size of x amount of *bomb pointers
+        //
+        auto it = std::remove_if( handler.begin(), handler.end(), [this](Bomb *bomb){  //<-IS THIS POINTER BEING DESTROYED AS ITS IN SCOPE
 
-            return spt.getUsed();
-        }
-        handler.pop_back();
+            return bomb->getUsed();
+        });
+
+        //need to also call destructor on whatever just stopped getting pointed to
+        handler.erase(it, handler.end());
     }
 }
 
