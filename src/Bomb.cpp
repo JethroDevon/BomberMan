@@ -23,13 +23,18 @@ Bomb::Bomb(int _X, int _Y, int _F, int _T): Sprites("Blast.png",3 , 5){
 }
 
 
-Bomb::Bomb(): Sprites("Blast.png",3 , 5){
+Bomb::Bomb(int _X, int _Y): Sprites("Blast.png",3 , 5){
 
     //set fuse animation loop
     loopMode(true, 0 ,5);
 
     //this is a blastlet
     setBlast(true);
+
+    //initialises the objects member variables
+    setPosX(_X);
+    setPosY(_Y);
+    setPos(getPosX(), getPosY());
 }
 
 //destructor is important for destroying old bomb objects after they have detonated!

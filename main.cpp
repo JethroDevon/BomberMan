@@ -46,7 +46,7 @@ int main(){
 
         //checks pl collisions against the arena and if there are any sets them to true, is called here for all players to
         //check and to take advantage of arenaCheck functions args
-        pl.setCollide(pl.arenaCheck(pl));
+        pl.setCollide(pl.arenaCheck(pl, false));  //<--SETTING THIS TO TRUE IS INTERESTING
 
         //sets players against collisions with all players bombs  -will be set here to check against all players-
         for(auto &b : pl.handler){

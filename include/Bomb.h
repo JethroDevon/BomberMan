@@ -28,11 +28,11 @@ class Bomb: public Sprites{
     public:
 
         //this is for a standard bomb when it has been placed to when it has been destroyed
-        Bomb(int, int, int, int);
+        Bomb( int, int, int, int);
 
         //this constructor is for blast, these are for the blast that travels  up down left and right of where it had detonated
         //these are to be created and destroyed and to kill the player on contact
-        Bomb();
+        Bomb( int, int);
 
         ~Bomb();
 

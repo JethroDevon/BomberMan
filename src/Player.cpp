@@ -121,7 +121,7 @@ void Player::keyInput(){
             }
 
             //if the newly created bomb is colliding with a block delete it
-            if(arenaCheck(*handler.back())){
+            if(arenaCheck(*handler.back(), true)){
 
                 //destroy the object at the back of the list by calling its destructor
                 handler.back()->destroy();
@@ -133,15 +133,16 @@ void Player::keyInput(){
     }
 }
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //         this is the player loop, it takes care of all functions that belong to                    ////
 //                      the player object and will be drawn in main                                  ////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
                             void Player::Draw(){                                                       //
                                                                                                        //
-                                keyInput();                                                            //
-                                drawBombs();                                                           //
-                                win.draw(getNext());                                                   //
+                                drawBombs();
+                                win.draw(getNext());
+                                keyInput();
                             }                                                                          //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -175,26 +176,56 @@ void Player::drawBombs(){
         win.draw( sprt->bombFrame());
 
         //this function will assign the iterator to be the size of x amount of *bomb pointers
-        //
-        auto it = std::remove_if( handler.begin(), handler.end(), [this](Bomb *bomb){  //<-IS THIS POINTER BEING DESTROYED AS ITS IN SCOPE
+        auto it = std::remove_if( handler.begin(), handler.end(), [this](Bomb *bomb){
 
             return bomb->getUsed();
         });
 
+
         //need to also call destructor on whatever just stopped getting pointed to
-        handler.erase(it, handler.end());
+         handler.erase(it, handler.end());
     }
 }
 
+//the following function will create the 'bomb.flame' amount of bombs in each direction but stop when colliding with a block, and call destroy on that object
+//the  bomb reference is to get flamelet number and draw positions
+void Player::drawBlast(Bomb b){
+
+    for(int x = 0; x < b.getFlame(); x++){
+
+        handler.push_back(new Bomb(b.getPosX() + (x * b.getWidth()), b.getPosY()));
+    }
+    for(int x = 0; x <  b.getFlame(); x++){
+
+        handler.push_back(new Bomb(b.getPosX() - (x * b.getWidth()), b.getPosY()));
+    }
+    for(int x = 0; x <  b.getFlame(); x++){
+
+        handler.push_back(new Bomb(b.getPosX(), b.getPosY() + (x * b.getWidth())));
+    }
+    for(int x = 0; x <  b.getFlame(); x++){
+
+        handler.push_back(new Bomb(b.getPosX(), b.getPosY() - (x * b.getWidth())));
+    }
+}
+
+
 //this function allows collision logic with the arena for the player
-//and bombs alike.
-bool Player::arenaCheck(Sprites _sp){
+//and bombs alike, if set to true will destroy block it is colliding with
+bool Player::arenaCheck(Sprites _sp, bool kill){
 
     for(auto b: arenareference->handler){
 
            //check to see if player is colliding with any block objects
            if(_sp.collission(b)){
 
+                //if this is true then setMarked sets block object to be removed later.
+                if(kill){
+
+                    b->setMarked(true);
+                }
+
+                //return true if there's a collision
                 return true;
            }
     }

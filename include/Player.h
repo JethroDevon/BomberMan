@@ -59,10 +59,12 @@ class Player: public Sprites{
 
         void drawBombs();
 
-        bool arenaCheck(Sprites);
+        bool arenaCheck(Sprites, bool);
 
         //sets arena reference pointer to arena
         void setArena(Arena &arena);
+
+        void drawBlast(Bomb);
 
     private:
 

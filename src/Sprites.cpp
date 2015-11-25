@@ -61,14 +61,16 @@ Sprites::Sprites(std::string _path, int _rows, int _cols): path( _path){
 //destructor
 Sprites::~Sprites(){
 
-    //error checking string
-    std::cout<<" a sprite has been destroyed"<<std::endl;
+    //error checking string, why you always calling?
+    //std::cout<<" a sprite has been destructed"<<std::endl;
     frames.clear();
 }
 
 //self destructor for use in emergencies
 void Sprites::destroy(){
 
+     //error checking string
+    std::cout<<" a sprite has been destroyed"<<std::endl;
     delete this;
 }
 
@@ -299,23 +301,57 @@ void Sprites::nextFrame(){
         }
 }
 
-//moves all the sprites draw positions
-void Sprites::movePos(bool c, int _x, int _y){
+//moves all the sprites draw positions if its not colliding
+void Sprites::movePos(bool col, int _x, int _y){
 
-    if(!c){
+    //if this change has not caused a collision update all frames
+    //to mach new changes
+    if(!col){
 
         setXY( getPosX() + _x , getPosY() + _y);
+
+        //loops through each sprite
+        for(auto &f: frames){
+
+            //still absolutely set the position so as to keep the hit box updated also
+             f.setPosition( getPosX(), getPosY());
+        }
+
+         //its safe to store the last position where x and y were not colliding
+        setStoredX(getPosX() - _x);
+        setStoredY(getPosY() - _y);
     }else{
 
-        setXY( getPosX() +- _x , getPosY() +- _y);
-    }
+        //if there is a collision reset the X and Y variables to the last saved ones
+        setXY( getStoredX(), getStoredY() );
 
-    //loops through each sprite
-    for(auto &f: frames){
+        for(auto &f: frames){
 
-        //still absolutely set the position so as to keep the hit box updated also
-         f.setPosition( getPosX(), getPosY());
+            //still absolutely set the position so as to keep the hit box updated also
+             f.setPosition( getPosX(), getPosY());
+        }
+        setCollide(false);
     }
+}
+
+int Sprites::getStoredX(){
+
+    return storedX;
+}
+
+int Sprites::getStoredY(){
+
+    return storedY;
+}
+
+void Sprites::setStoredY(int _s){
+
+    storedY = _s;
+}
+
+void Sprites::setStoredX(int _s){
+
+    storedX = _s;
 }
 
 //moves all the sprites draw positions

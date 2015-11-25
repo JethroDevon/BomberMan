@@ -51,6 +51,8 @@ class Arena{
         //getting level string
         std::string level;
 
+        void destroyBlocks();
+
     private:
 };
 

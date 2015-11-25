@@ -83,12 +83,23 @@ void Arena::makeArena(int block_width, int block_height){
     }
 }
 
+
 //this function draws all the blocks on the screen
 void Arena::drawBlocks(){
 
     for(auto f: handler){
 
-        win.draw( f->returnBlock(f->getType()));
+            win.draw( f->returnBlock(f->getType()));
+
+            //this function will assign the iterator to be the size of x amount of *bomb pointers
+            auto it = std::remove_if( handler.begin(), handler.end(), [this](Block *block){
+
+                return block->getMarked();
+            });
+
+
+            //need to also call destructor on whatever just stopped getting pointed to
+            handler.erase(it, handler.end());
     }
 }
 

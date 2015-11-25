@@ -121,6 +121,11 @@ class Sprites{
 
         std::clock_t startTime;
 
+        int getStoredX();
+        int getStoredY();
+
+        void setStoredX(int);
+        void setStoredY(int);
 
     private:
 
@@ -134,7 +139,7 @@ class Sprites{
         sf::Texture tex;
 
         //dimensions of the sprite or all frames of the sprite as a whole, this is for collisions or movement
-        int posX, posY, sWidth, sHeight;
+        int posX, posY, sWidth, sHeight, storedX ,storedY;
 
         bool colliding;
 };

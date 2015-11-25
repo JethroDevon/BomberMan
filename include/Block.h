@@ -33,12 +33,17 @@ class Block: public Sprites{
 
         bool getType();
 
+        void setMarked(bool);
+
+        bool getMarked();
+
         sf::Sprite returnBlock(bool);
 
     private:
 
         //if block is destructible then false else true, this will apply to destroying the block and drawring the block
-        bool destruct;
+        //a marked block set to true will be a blocked marked to be removed else where
+        bool destruct, marked;
 
 
 };
