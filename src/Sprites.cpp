@@ -37,8 +37,6 @@ Sprites::Sprites(std::string _path, int _rows, int _cols): path( _path){
      //if image is found go ahead and initialise member variables
      if(setImage()){
 
-        std::cout << "Image @" << path << " loaded." <<std::endl;
-
         //set a starting frame, total frames and call frame array building function
         frame = 0;
         startFrame = frame;
@@ -70,7 +68,7 @@ Sprites::~Sprites(){
 void Sprites::destroy(){
 
      //error checking string
-    std::cout<<" a sprite has been destroyed"<<std::endl;
+    //std::cout<<" a sprite has been destroyed"<<std::endl;
     delete this;
 }
 
@@ -92,6 +90,7 @@ void Sprites::addFrames(){
     tex.create(cntSheet.getSize().x, cntSheet.getSize().y);
     tex.update(cntSheet);
 
+  //  setWH(cntSheet.getSize().x, cntSheet.getSize().y);
     //work out the size of the subframes if contact image is
     //set up to cut images in this way
     int width = (1 * cntSheet.getSize().x)/cols;
@@ -116,7 +115,7 @@ void Sprites::addFrames(){
     }
 
     //return debug data
-    std::cout << "Added  " << frames.size() << " frames." << std::endl;
+    //std::cout << "Added  " << frames.size() << " frames." << std::endl;
 }
 
 //gets the next sprite in the frame

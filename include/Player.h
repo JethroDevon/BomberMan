@@ -64,20 +64,27 @@ class Player: public Sprites{
         //sets arena reference pointer to arena
         void setArena(Arena &arena);
 
-        void drawBlast(Bomb);
+        void drawBlast();
+
+        void initBlast(bool, int, int, int);
+
+        void doBlast();
+
+        int getBlastX();
+
+        int getBlastY();
+
+        int getFlame();
 
     private:
-
-        //player one two etc
-        int playerID;
 
         //position variables for player movement facing relates to enum direction(up, down ,left , right)
         //prevface is to store previously facing direction to avoid resetting animation loop and to create
         //special player move logic, next is player width and height, default 50 px for now
-        int facing, previouslyFacing;
+        int facing, previouslyFacing, flame, blastX, blastY;
 
-        //player may be able to customise their name
-        std::string playerName;
+        bool blastFlag;
+
 };
 
 #endif // PLAYER_H

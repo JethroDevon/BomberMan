@@ -1,6 +1,6 @@
 #include "Bomb.h"
 
-Bomb::Bomb(int _X, int _Y, int _F, int _T): Sprites("Blast.png",3 , 5){
+Bomb::Bomb(int _X, int _Y, int _F, int _T): Sprites("Balst.png",3 , 5){
 
     //set fuse animation loop
     loopMode(true, 10 ,15);
@@ -11,6 +11,7 @@ Bomb::Bomb(int _X, int _Y, int _F, int _T): Sprites("Blast.png",3 , 5){
     setPos(getPosX(), getPosY());
     setBombTicks(_T);
     setFlame(_F);
+    setWH(20 ,20);
 
     //not used yet
     setUsed(false);
@@ -23,10 +24,12 @@ Bomb::Bomb(int _X, int _Y, int _F, int _T): Sprites("Blast.png",3 , 5){
 }
 
 
-Bomb::Bomb(int _X, int _Y): Sprites("Blast.png",3 , 5){
+Bomb::Bomb(int _X, int _Y): Sprites("Balst.png",3 , 5){
 
     //set fuse animation loop
     loopMode(true, 0 ,5);
+
+     setWH(20 ,20);
 
     //this is a blastlet
     setBlast(true);
@@ -109,14 +112,19 @@ sf::Sprite Bomb::bombFrame(){
 
     //once at final blast frame set used to true so bomb can be marked for removal from the bomb list by another function
     //once an isBlast is false && ignition and used is true then the function to create a set amount of blastlets is called in the player function
-    //these will be handled differently
+    //these will be handled differently, this is also the case for a blastlet
     if(frame == 9){
 
         setUsed(true);
     }
 
+    if(frame < 5){
+
+        setUsed(true);
+    }
+
     //if the last frame in bomb fuse animation is not rolling then play the bomb fuse anim
-    if(!getIgnite()){
+    if(!getIgnite() && !getBlast()){
 
         //animates the first 5 frames of bomb to iterate over 1 fifth of each set amount
         //of time it takes before bomb detonation, last frame is miscounted because I think its ugly
@@ -144,4 +152,5 @@ sf::Sprite Bomb::bombFrame(){
         return getNext();
     }
 }
+
 

@@ -48,11 +48,7 @@ int main(){
         //check and to take advantage of arenaCheck functions args
         pl.setCollide(pl.arenaCheck(pl, false));  //<--SETTING THIS TO TRUE IS INTERESTING
 
-        //sets players against collisions with all players bombs  -will be set here to check against all players-
-        for(auto &b : pl.handler){
 
-            pl.setCollide(pl.collission(b));
-        }
 
         //draw player sprites
         pl.Draw();

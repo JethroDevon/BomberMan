@@ -26,14 +26,14 @@ created bomb timer: include time.h , get ticks, pickups will tweak bomb timers e
 bomb collisions: player collides with bombs and players will collide with all bombs later on. 
 
 					             TO-DO list:
+debug bounding boxes and movement: might have to change movement architecture as is buggy in movement and animation when player collides
+
 
 bomb blast animation and collision: use blast loop, each bomb creates x amount of sub bombs with bomb handiling array in bomb, must destroy pointers and add to 
 array dynamicaly, must use flag to kill player when bomb is of blast type boolean, this will also switch the animation loop images and detect by destruction function,
 bomb collisions must be passed by pointer 
 
 block colliding with bomb blast: this destroys block and stops further creation of blasts in this direction, pass pointers through collision loop
-
-debug bounding boxes and movement: might have to change movement architecture as is buggy in movement and animation when player collides
 
 Image manager: a static image loader class can load all textures once and pass required textures into sprite constructor, this will stop loading an image each time
 a new block is created at the beginning or a bomb is dynamically created.

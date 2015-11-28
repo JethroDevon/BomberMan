@@ -12,7 +12,7 @@ Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4
     setPos( 26, 26);
 
     //sets width and height of player
-    setWH(20, 20);
+    setWH(18, 18);
 
     //default facing value draws players facing the right
     facing = right;
@@ -21,6 +21,8 @@ Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4
     //set sprite animation for walking left
     loopMode(newFace(), 18, 23);
 
+    //default this must be off
+    blastFlag = false;
 }
 
 Player::~Player(){
@@ -36,27 +38,31 @@ void Player::keyInput(){
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 
-        //up key is pressed: move character up
+         //up key is pressed: move character up
         facing = up;
 
          //set sprite animation for walking up
         loopMode(newFace(), 0, 6);
 
         //move sprite up incrementally
-        movePos(getCollide(), 0, -6);
+        movePos(getCollide(), 0, -4);
+
+
 
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 
-        // left key is pressed: move character
+         // left key is pressed: move character
         facing = down;
 
         //set sprite animation for walking down
         loopMode(newFace(), 6, 12);
 
         //move sprite down incrementally
-        movePos(getCollide(), 0, 6);
+        movePos(getCollide(), 0, 4);
+
 
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+
 
         // left key is pressed: move character
         facing = left;
@@ -65,7 +71,7 @@ void Player::keyInput(){
         loopMode(newFace(), 12, 18);
 
         //move sprite left incrementally
-        movePos(getCollide(), -6, 0);
+        movePos(getCollide(), -4, 0);
 
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 
@@ -76,7 +82,8 @@ void Player::keyInput(){
         loopMode(newFace(), 18, 23);
 
         //move sprite left incrementally
-        movePos(getCollide(), 6, 0);
+        movePos(getCollide(), 4, 0);
+
     }
 
 
@@ -92,42 +99,37 @@ void Player::keyInput(){
 
                 case 1:
 
-                     //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
-                     //the area above or below
-                    handler.push_back(new Bomb(getPosX() -40, getPosY()-60, 5, 5));
+                    handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() - getHeight() - 2 , 5, 5));
                     break;
 
                 case 2:
 
-                     //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
-                     //the area above or below
-                    handler.push_back(new Bomb(getPosX() -40 , getPosY() -20 , 5, 5));
+                    handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() + getHeight() - 2, 5, 5));
                     break;
 
                 case 3:
 
-                     //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
-                     //the area above or below
-                    handler.push_back(new Bomb(getPosX() -60 , getPosY() -40 , 5, 5));
+                    handler.push_back(new Bomb(getPosX() - 20, getPosY() - (getHeight()/3), 5, 5));
                     break;
 
                  case 4:
 
-                     //creates a new bomb, an offset of -40 -40 would draw a bomb at the location of the player, plus or minus some would be in
-                     //the area above or below
-                    handler.push_back(new Bomb(getPosX() -20, getPosY() -40, 5, 5));
+                    handler.push_back(new Bomb(getPosX() + 10, getPosY() -( getHeight()/3), 5, 5));
                     break;
 
             }
 
             //if the newly created bomb is colliding with a block delete it
-            if(arenaCheck(*handler.back(), true)){
+            if(arenaCheck(*handler.back(), false)){
 
                 //destroy the object at the back of the list by calling its destructor
                 handler.back()->destroy();
 
                 //remove the pointer at the back of handler
                 handler.pop_back();
+
+                //and create one directly where the player is
+                handler.push_back(new Bomb(getPosX() - getWidth()/4, getPosY(), 5, 5));
             }
         }
     }
@@ -138,11 +140,12 @@ void Player::keyInput(){
 //         this is the player loop, it takes care of all functions that belong to                    ////
 //                      the player object and will be drawn in main                                  ////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-                            void Player::Draw(){                                                       //
-                                                                                                       //
+                            void Player::Draw(){
+
+                                doBlast();
                                 drawBombs();
-                                win.draw(getNext());
                                 keyInput();
+                                win.draw(getNext());
                             }                                                                          //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -158,10 +161,10 @@ int Player::getFace(){
     if(facing != previouslyFacing){
 
         previouslyFacing = facing;
-        return true;
+        return false;
     }else{
 
-        return false;
+        return true;
     }
 }
 
@@ -178,59 +181,126 @@ void Player::drawBombs(){
         //this function will assign the iterator to be the size of x amount of *bomb pointers
         auto it = std::remove_if( handler.begin(), handler.end(), [this](Bomb *bomb){
 
+            //if it is an exploded bomb call the function that will create the blasts
+            if(bomb->getUsed() && !bomb->getBlast()){
+
+                //flags the bomb creator to create a blast in first arg and stores where to do it at x Y in next two args
+                initBlast( true, bomb->getPosX(), bomb->getPosY(), bomb->getFlame());
+            }
+
             return bomb->getUsed();
         });
 
 
-        //need to also call destructor on whatever just stopped getting pointed to
-         handler.erase(it, handler.end());
+            //need to also call destructor on whatever just stopped getting pointed to
+             handler.erase(it, handler.end());
     }
 }
 
-//the following function will create the 'bomb.flame' amount of bombs in each direction but stop when colliding with a block, and call destroy on that object
-//the  bomb reference is to get flamelet number and draw positions
-void Player::drawBlast(Bomb b){
+//the following function will create the 'bomb.flame' amount of bombs in each direction but stop when colliding with a block
+//the reference to the collision will destroy the block if it is of type
+void Player::drawBlast(){
 
-    for(int x = 0; x < b.getFlame(); x++){
+    //each for loop creates bombs in each of the four directions....
+    for(int x = 0; x < getFlame(); x++){
 
-        handler.push_back(new Bomb(b.getPosX() + (x * b.getWidth()), b.getPosY()));
+        handler.push_back(new Bomb(getBlastX() + (x * 25), getBlastY()));
+
+            if(arenaCheck(*handler.back(), true)){
+
+                break;
+            }
     }
-    for(int x = 0; x <  b.getFlame(); x++){
 
-        handler.push_back(new Bomb(b.getPosX() - (x * b.getWidth()), b.getPosY()));
+    for(int x = 0; x < getFlame(); x++){
+
+         handler.push_back(new Bomb(getBlastX() - (x * 25), getBlastY()));
+
+            if(arenaCheck(*handler.back(), true)){
+
+                break;
+            }
     }
-    for(int x = 0; x <  b.getFlame(); x++){
+     for(int x = 0; x < getFlame(); x++){
 
-        handler.push_back(new Bomb(b.getPosX(), b.getPosY() + (x * b.getWidth())));
+        handler.push_back(new Bomb(getBlastX(), getBlastY() + (x * 25)));
+
+            if(arenaCheck(*handler.back(), true)){
+
+                break;
+            }
     }
-    for(int x = 0; x <  b.getFlame(); x++){
 
-        handler.push_back(new Bomb(b.getPosX(), b.getPosY() - (x * b.getWidth())));
+    for(int x = 0; x < getFlame(); x++){
+
+         handler.push_back(new Bomb(getBlastX(), getBlastY()  - (x * 25)));
+
+            if(arenaCheck(*handler.back(), true)){
+
+                break;
+            }
+    }
+
+
+}
+
+void Player::doBlast(){
+
+    if(blastFlag){
+
+        drawBlast();
+        blastFlag = false;
     }
 }
 
+int Player::getFlame(){
+
+    return flame;
+}
+
+int Player::getBlastX(){
+
+    return blastX;
+}
+
+int Player::getBlastY(){
+
+    return blastY;
+}
+
+void Player::initBlast(bool _flag, int _x, int _y, int _f){
+
+    blastFlag = true;
+    blastX = _x;
+    blastY = _y;
+    flame = _f;
+}
 
 //this function allows collision logic with the arena for the player
 //and bombs alike, if set to true will destroy block it is colliding with
 bool Player::arenaCheck(Sprites _sp, bool kill){
 
-    for(auto b: arenareference->handler){
+    bool collided = false;
 
-           //check to see if player is colliding with any block objects
-           if(_sp.collission(b)){
+
+        for(auto b: arenareference->handler){
+
+            //check to see if _sp is colliding with any block objects
+            if(_sp.collission(b)){
 
                 //if this is true then setMarked sets block object to be removed later.
-                if(kill){
+                if(kill && b-> getType()){
 
                     b->setMarked(true);
                 }
 
                 //return true if there's a collision
-                return true;
-           }
-    }
+                collided = true;
+            }
+        }
 
-    return false;
+
+    return collided;
 }
 
 //this function sets a pointer to the arena class for operations that require
