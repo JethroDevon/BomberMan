@@ -42,6 +42,10 @@ debuged bounding boxes and movement: might have to change movement architecture 
 
 block colliding with bomb blast: this destroys block and stops further creation of blasts in this direction, pass pointers through collision loop
 
+mysterious walking animation bug solved, changing player facing variable half way through an animation loop causes a flag frame to be skipped
+
+multiple keyboard players: add player loop so pl object is player array instead, add option to gui
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -51,7 +55,11 @@ block colliding with bomb blast: this destroys block and stops further creation 
 Image manager: a static image loader class can load all textures once and pass required textures into sprite constructor, this will stop loading an image each time
 a new block is created at the beginning or a bomb is dynamically created.
 
-multiple keyboard players: add player loop so pl object is player array instead, add option to gui, make modular for...
+bomb blasts colliding with bombs setting them off
+
+bomb blasts killing players
+
+players colliding with bombs but not if they have just laid one
 
 hud, add minimum displayable stuff, use mouse hover to bring about options and pause in game
 
@@ -59,9 +67,11 @@ gui: use same hud button class, maybe start with splash and display loading mess
 
 pickups: add a couple of pickups for proof of concept
 
-networked players: set up udp server in gui, when connected hit go, use json library, also send server/client status messages, use ticks class for timouts
-
 polishing
+
+no time -> networked players: set up udp server in gui, when connected hit go, use json library, also send server/client status messages, use ticks class for timouts
+
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

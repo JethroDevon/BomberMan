@@ -127,6 +127,9 @@ class Sprites{
         void setStoredX(int);
         void setStoredY(int);
 
+        //stores events so new instance does not have to be regularly made each loop
+        sf::Event event;
+
     private:
 
         //the Image variable is a contact sheet for sprites to use in animation

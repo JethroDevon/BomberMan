@@ -8,9 +8,6 @@ Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4
     //sets base classes idle frame
     idle = 6;
 
-    //for now start pos will be set here
-    setPos( 26, 26);
-
     //sets width and height of player
     setWH(18, 18);
 
@@ -31,105 +28,224 @@ Player::~Player(){
    delete arenareference;
 }
 
+//sets which layout players one and two will be useing
+void Player::setKeyLayout(int _l){
+
+    layout = _l;
+}
+
+//returns layout type
+int Player::getKeyLayout(){
+
+    return layout;
+}
+
 //detects key input and changes the value of the facing integer, then moves the player
 //also manages key input to create a bomb
-void Player::keyInput(){
+void Player::keyInput(sf:: Event e){
+
+    if(layout == 1){
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+
+             //up key is pressed: move character up
+            facing = up;
+
+             //set sprite animation for walking up
+            loopMode(newFace(), 0, 6);
+
+            //move sprite up incrementally
+            movePos(getCollide(), 0, -4);
 
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 
-         //up key is pressed: move character up
-        facing = up;
+        }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 
-         //set sprite animation for walking up
-        loopMode(newFace(), 0, 6);
+             // left key is pressed: move character
+            facing = down;
 
-        //move sprite up incrementally
-        movePos(getCollide(), 0, -4);
+            //set sprite animation for walking down
+            loopMode(newFace(), 6, 12);
 
-
-
-    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-
-         // left key is pressed: move character
-        facing = down;
-
-        //set sprite animation for walking down
-        loopMode(newFace(), 6, 12);
-
-        //move sprite down incrementally
-        movePos(getCollide(), 0, 4);
+            //move sprite down incrementally
+            movePos(getCollide(), 0, 4);
 
 
-    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 
 
-        // left key is pressed: move character
-        facing = left;
+            // left key is pressed: move character
+            facing = left;
 
-         //set sprite animation for walking left
-        loopMode(newFace(), 12, 18);
+             //set sprite animation for walking left
+            loopMode(newFace(), 12, 18);
 
-        //move sprite left incrementally
-        movePos(getCollide(), -4, 0);
+            //move sprite left incrementally
+            movePos(getCollide(), -4, 0);
 
-    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 
-        // left key is pressed: move character
-        facing = right;
+            // left key is pressed: move character
+            facing = right;
 
-        //set sprite animation for walking left
-        loopMode(newFace(), 18, 23);
+            //set sprite animation for walking left
+            loopMode(newFace(), 18, 23);
 
-        //move sprite left incrementally
-        movePos(getCollide(), 4, 0);
+            //move sprite left incrementally
+            movePos(getCollide(), 4, 0);
 
+        }
+
+        //this is seperate from the main block so player can walk and lay bombs
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)){
+
+             //dont listen to key press if half a second has not passed
+             if(getTicks(0.5)){
+
+                //checks facing enum value to create a bomb in front of the player depending on
+                //which way its facing
+                switch(getFace()){
+
+                    case 1:
+
+                        handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() - getHeight() - 2 , 5, 5));
+                        break;
+
+                    case 2:
+
+                        handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() + getHeight() - 2, 5, 5));
+                        break;
+
+                    case 3:
+
+                        handler.push_back(new Bomb(getPosX() - 20, getPosY() - (getHeight()/3), 5, 5));
+                        break;
+
+                     case 4:
+
+                        handler.push_back(new Bomb(getPosX() + 10, getPosY() -( getHeight()/3), 5, 5));
+                        break;
+
+                }
+
+                //if the newly created bomb is colliding with a block delete it
+                if(arenaCheck(*handler.back(), false)){
+
+                    //destroy the object at the back of the list by calling its destructor
+                    handler.back()->destroy();
+
+                    //remove the pointer at the back of handler
+                    handler.pop_back();
+
+                    //and create one directly where the player is
+                    handler.push_back(new Bomb(getPosX() - getWidth()/4, getPosY(), 5, 5));
+                }
+            }
+        }
     }
 
+    if(layout == 2){
 
-    //this is seperate from the main block so player can walk and lay bombs
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 
-         //dont listen to key press if half a second has not passed
-         if(getTicks(0.5)){
+         if (e.type == sf::Event::TextEntered) {
 
-            //checks facing enum value to create a bomb in front of the player depending on
-            //which way its facing
-            switch(getFace()){
+            char c = static_cast<char> (e.text.unicode);
 
-                case 1:
+            if (c == 'w'){
 
-                    handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() - getHeight() - 2 , 5, 5));
-                    break;
+                //up key is pressed: move character up
+                facing = up;
 
-                case 2:
+                //set sprite animation for walking up
+                loopMode(newFace(), 0, 6);
 
-                    handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() + getHeight() - 2, 5, 5));
-                    break;
+                //move sprite up incrementally
+                movePos(getCollide(), 0, -4);
 
-                case 3:
 
-                    handler.push_back(new Bomb(getPosX() - 20, getPosY() - (getHeight()/3), 5, 5));
-                    break;
 
-                 case 4:
+            }else if (c == 's'){
 
-                    handler.push_back(new Bomb(getPosX() + 10, getPosY() -( getHeight()/3), 5, 5));
-                    break;
+                // left key is pressed: move character
+                facing = down;
+
+                //set sprite animation for walking down
+                loopMode(newFace(), 6, 12);
+
+                //move sprite down incrementally
+                movePos(getCollide(), 0, 4);
+
+
+            }else if (c == 'a'){
+
+
+                // left key is pressed: move character
+                facing = left;
+
+                //set sprite animation for walking left
+                loopMode(newFace(), 12, 18);
+
+                //move sprite left incrementally
+                movePos(getCollide(), -4, 0);
+
+            }else if (c == 'd'){
+
+                // left key is pressed: move character
+                facing = right;
+
+                //set sprite animation for walking left
+                loopMode(newFace(), 18, 23);
+
+                //move sprite left incrementally
+                movePos(getCollide(), 4, 0);
 
             }
+        }
 
-            //if the newly created bomb is colliding with a block delete it
-            if(arenaCheck(*handler.back(), false)){
+         //this is seperate from the main block so player can walk and lay bombs
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 
-                //destroy the object at the back of the list by calling its destructor
-                handler.back()->destroy();
+             //dont listen to key press if half a second has not passed
+             if(getTicks(0.5)){
 
-                //remove the pointer at the back of handler
-                handler.pop_back();
+                //checks facing enum value to create a bomb in front of the player depending on
+                //which way its facing
+                switch(getFace()){
 
-                //and create one directly where the player is
-                handler.push_back(new Bomb(getPosX() - getWidth()/4, getPosY(), 5, 5));
+                    case 1:
+
+                        handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() - getHeight() - 2 , 5, 5));
+                        break;
+
+                    case 2:
+
+                        handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() + getHeight() - 2, 5, 5));
+                        break;
+
+                    case 3:
+
+                        handler.push_back(new Bomb(getPosX() - 20, getPosY() - (getHeight()/3), 5, 5));
+                        break;
+
+                     case 4:
+
+                        handler.push_back(new Bomb(getPosX() + 10, getPosY() -( getHeight()/3), 5, 5));
+                        break;
+
+                }
+
+                //if the newly created bomb is colliding with a block delete it
+                if(arenaCheck(*handler.back(), false)){
+
+                    //destroy the object at the back of the list by calling its destructor
+                    handler.back()->destroy();
+
+                    //remove the pointer at the back of handler
+                    handler.pop_back();
+
+                    //and create one directly where the player is
+                    handler.push_back(new Bomb(getPosX() - getWidth()/4, getPosY(), 5, 5));
+                }
             }
         }
     }
@@ -144,7 +260,6 @@ void Player::keyInput(){
 
                                 doBlast();
                                 drawBombs();
-                                keyInput();
                                 win.draw(getNext());
                             }                                                                          //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,10 +276,10 @@ int Player::getFace(){
     if(facing != previouslyFacing){
 
         previouslyFacing = facing;
-        return false;
+        return true;
     }else{
 
-        return true;
+        return false;
     }
 }
 
@@ -205,6 +320,7 @@ void Player::drawBlast(){
     for(int x = 0; x < getFlame(); x++){
 
         handler.push_back(new Bomb(getBlastX() + (x * 25), getBlastY()));
+        handler.back()->setIgnite(true);
 
             if(arenaCheck(*handler.back(), true)){
 
@@ -215,6 +331,7 @@ void Player::drawBlast(){
     for(int x = 0; x < getFlame(); x++){
 
          handler.push_back(new Bomb(getBlastX() - (x * 25), getBlastY()));
+          handler.back()->setIgnite(true);
 
             if(arenaCheck(*handler.back(), true)){
 
@@ -224,6 +341,7 @@ void Player::drawBlast(){
      for(int x = 0; x < getFlame(); x++){
 
         handler.push_back(new Bomb(getBlastX(), getBlastY() + (x * 25)));
+         handler.back()->setIgnite(true);
 
             if(arenaCheck(*handler.back(), true)){
 
@@ -234,6 +352,7 @@ void Player::drawBlast(){
     for(int x = 0; x < getFlame(); x++){
 
          handler.push_back(new Bomb(getBlastX(), getBlastY()  - (x * 25)));
+          handler.back()->setIgnite(true);
 
             if(arenaCheck(*handler.back(), true)){
 

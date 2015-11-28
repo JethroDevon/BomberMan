@@ -118,13 +118,13 @@ sf::Sprite Bomb::bombFrame(){
         setUsed(true);
     }
 
-    if(frame < 5){
+    if(frame == 4){
 
         setUsed(true);
     }
 
     //if the last frame in bomb fuse animation is not rolling then play the bomb fuse anim
-    if(!getIgnite() && !getBlast()){
+    if(!getIgnite()){
 
         //animates the first 5 frames of bomb to iterate over 1 fifth of each set amount
         //of time it takes before bomb detonation, last frame is miscounted because I think its ugly
@@ -135,7 +135,6 @@ sf::Sprite Bomb::bombFrame(){
 
         //else return the normal static frame, this function cannot fail to return a
         //sprite to the function that called it else the program will crash
-        ///TO-DO: add try catch statement to avoid system crash if fail to return sprite
         }else{
 
             //returns present frame and not next frame

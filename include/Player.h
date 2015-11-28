@@ -47,7 +47,7 @@ class Player: public Sprites{
         void movePlayer();
 
         //changes the heading value by detecting key inputs
-        void keyInput();
+        void keyInput(sf::Event);
 
         //this returns the players movement heading
         int getFace();
@@ -76,12 +76,17 @@ class Player: public Sprites{
 
         int getFlame();
 
+        int getKeyLayout();
+
+        void setKeyLayout(int _l);
+
     private:
 
         //position variables for player movement facing relates to enum direction(up, down ,left , right)
         //prevface is to store previously facing direction to avoid resetting animation loop and to create
-        //special player move logic, next is player width and height, default 50 px for now
-        int facing, previouslyFacing, flame, blastX, blastY;
+        //special player move logic, flame blastX and blastY store position of next place to draw the blast of a bomb
+        //layout specifies which keyboard layout to use.
+        int facing, previouslyFacing, flame, blastX, blastY, layout;
 
         bool blastFlag;
 

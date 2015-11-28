@@ -144,7 +144,6 @@ void Sprites::loopMode(int sa, int so){
 
         total_frames = (rows*cols)-1;
         startFrame = 0;
-
     }else{
 
         frame = sa;
@@ -262,7 +261,6 @@ int Sprites::getHeight(){
 }
 
 
-///TO-DO: Return a bool and handle in error safe logic.
 //this overloaded version of above only changes direction
 //if true is in the first argument, this is to manage collisions
 //and sprites not being in new states
@@ -270,19 +268,9 @@ void Sprites::loopMode(bool b, int sa, int so){
 
     if(b){
 
-        //if new arguments would cause out of bounds errors set loop back to default
-        //values instead
-        if((sa < 0 || sa > total_frames )|| (so < 1 || so > total_frames)){
-
-            total_frames = (rows*cols)-1;
-            startFrame = 0;
-
-        }else{
-
             frame = sa;
             total_frames = so;
             startFrame = sa;
-        }
     }
 }
 
