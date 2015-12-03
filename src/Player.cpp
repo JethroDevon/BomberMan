@@ -20,249 +20,120 @@ Player::Player(sf::RenderWindow &_window): win(_window), Sprites("player.png", 4
 
     //default this must be off
     blastFlag = false;
+
+    isAlive = false;
 }
 
 Player::~Player(){
 
-   //on the destruction of player the pointer to the arena
-   delete arenareference;
+    garbage();
 }
 
-//sets which layout players one and two will be useing
-void Player::setKeyLayout(int _l){
+void Player::garbage(){
 
-    layout = _l;
+    for (std::vector< Bomb* >::iterator it = handler.begin() ; it != handler.end(); ++it){
+
+        delete (*it);
+    }
+    handler.clear();
+
+    arenareference->garbage();
+    delete arenareference;
 }
 
-//returns layout type
-int Player::getKeyLayout(){
+void Player::layBomb(){
 
-    return layout;
-}
-
-//detects key input and changes the value of the facing integer, then moves the player
-//also manages key input to create a bomb
-void Player::keyInput(sf:: Event e){
-
-    if(layout == 1){
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-
-             //up key is pressed: move character up
-            facing = up;
-
-             //set sprite animation for walking up
-            loopMode(newFace(), 0, 6);
-
-            //move sprite up incrementally
-            movePos(getCollide(), 0, -4);
-
-
-
-        }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-
-             // left key is pressed: move character
-            facing = down;
-
-            //set sprite animation for walking down
-            loopMode(newFace(), 6, 12);
-
-            //move sprite down incrementally
-            movePos(getCollide(), 0, 4);
-
-
-        }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-
-
-            // left key is pressed: move character
-            facing = left;
-
-             //set sprite animation for walking left
-            loopMode(newFace(), 12, 18);
-
-            //move sprite left incrementally
-            movePos(getCollide(), -4, 0);
-
-        }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-
-            // left key is pressed: move character
-            facing = right;
-
-            //set sprite animation for walking left
-            loopMode(newFace(), 18, 23);
-
-            //move sprite left incrementally
-            movePos(getCollide(), 4, 0);
-
-        }
-
-        //this is seperate from the main block so player can walk and lay bombs
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)){
-
-             //dont listen to key press if half a second has not passed
-             if(getTicks(0.5)){
+     //dont listen to key press if half a second has not passed
+    if(getTicks(0.5)){
 
                 //checks facing enum value to create a bomb in front of the player depending on
                 //which way its facing
-                switch(getFace()){
+        switch(getFace()){
 
-                    case 1:
+            case 1:
 
-                        handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() - getHeight() - 2 , 5, 5));
-                        break;
+                handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() - getHeight() - 2 , 5, 5));
+                break;
 
-                    case 2:
+            case 2:
 
-                        handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() + getHeight() - 2, 5, 5));
-                        break;
+                handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() + getHeight() - 2, 5, 5));
+                break;
 
-                    case 3:
+            case 3:
 
-                        handler.push_back(new Bomb(getPosX() - 20, getPosY() - (getHeight()/3), 5, 5));
-                        break;
+                handler.push_back(new Bomb(getPosX() - 20, getPosY() - (getHeight()/3), 5, 5));
+                break;
 
-                     case 4:
+            case 4:
 
-                        handler.push_back(new Bomb(getPosX() + 10, getPosY() -( getHeight()/3), 5, 5));
-                        break;
+                handler.push_back(new Bomb(getPosX() + 10, getPosY() -( getHeight()/3), 5, 5));
+                break;
+        }
 
-                }
+            //if the newly created bomb is colliding with a block delete it
+            if(arenaCheck(*handler.back(), false)){
 
-                //if the newly created bomb is colliding with a block delete it
-                if(arenaCheck(*handler.back(), false)){
+                //destroy the object at the back of the list by calling its destructor
+                handler.back()->destroy();
 
-                    //destroy the object at the back of the list by calling its destructor
-                    handler.back()->destroy();
+                //remove the pointer at the back of handler
+                handler.pop_back();
 
-                    //remove the pointer at the back of handler
-                    handler.pop_back();
-
-                    //and create one directly where the player is
-                    handler.push_back(new Bomb(getPosX() - getWidth()/4, getPosY(), 5, 5));
-                }
+                //and create one directly where the player is
+                handler.push_back(new Bomb(getPosX() - getWidth()/4, getPosY(), 5, 5));
             }
         }
     }
 
-    if(layout == 2){
+//these functions will move the player in any of the following directions
+void Player::moveRight(){
 
+     // left key is pressed: move character
+    facing = right;
 
-         if (e.type == sf::Event::TextEntered) {
+    //set sprite animation for walking left
+    loopMode(newFace(), 18, 23);
 
-            char c = static_cast<char> (e.text.unicode);
-
-            if (c == 'w'){
-
-                //up key is pressed: move character up
-                facing = up;
-
-                //set sprite animation for walking up
-                loopMode(newFace(), 0, 6);
-
-                //move sprite up incrementally
-                movePos(getCollide(), 0, -4);
-
-
-
-            }else if (c == 's'){
-
-                // left key is pressed: move character
-                facing = down;
-
-                //set sprite animation for walking down
-                loopMode(newFace(), 6, 12);
-
-                //move sprite down incrementally
-                movePos(getCollide(), 0, 4);
-
-
-            }else if (c == 'a'){
-
-
-                // left key is pressed: move character
-                facing = left;
-
-                //set sprite animation for walking left
-                loopMode(newFace(), 12, 18);
-
-                //move sprite left incrementally
-                movePos(getCollide(), -4, 0);
-
-            }else if (c == 'd'){
-
-                // left key is pressed: move character
-                facing = right;
-
-                //set sprite animation for walking left
-                loopMode(newFace(), 18, 23);
-
-                //move sprite left incrementally
-                movePos(getCollide(), 4, 0);
-
-            }
-        }
-
-         //this is seperate from the main block so player can walk and lay bombs
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-
-             //dont listen to key press if half a second has not passed
-             if(getTicks(0.5)){
-
-                //checks facing enum value to create a bomb in front of the player depending on
-                //which way its facing
-                switch(getFace()){
-
-                    case 1:
-
-                        handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() - getHeight() - 2 , 5, 5));
-                        break;
-
-                    case 2:
-
-                        handler.push_back(new Bomb(getPosX() - getWidth()/3, getPosY() + getHeight() - 2, 5, 5));
-                        break;
-
-                    case 3:
-
-                        handler.push_back(new Bomb(getPosX() - 20, getPosY() - (getHeight()/3), 5, 5));
-                        break;
-
-                     case 4:
-
-                        handler.push_back(new Bomb(getPosX() + 10, getPosY() -( getHeight()/3), 5, 5));
-                        break;
-
-                }
-
-                //if the newly created bomb is colliding with a block delete it
-                if(arenaCheck(*handler.back(), false)){
-
-                    //destroy the object at the back of the list by calling its destructor
-                    handler.back()->destroy();
-
-                    //remove the pointer at the back of handler
-                    handler.pop_back();
-
-                    //and create one directly where the player is
-                    handler.push_back(new Bomb(getPosX() - getWidth()/4, getPosY(), 5, 5));
-                }
-            }
-        }
-    }
+    //move sprite left incrementally
+    movePos(getCollide(), 4, 0);
 }
 
+void Player::moveLeft(){
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//         this is the player loop, it takes care of all functions that belong to                    ////
-//                      the player object and will be drawn in main                                  ////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-                            void Player::Draw(){
+    // left key is pressed: move character
+    facing = left;
 
-                                doBlast();
-                                drawBombs();
-                                win.draw(getNext());
-                            }                                                                          //
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //set sprite animation for walking left
+    loopMode(newFace(), 12, 18);
+
+    //move sprite left incrementally
+    movePos(getCollide(), -4, 0);
+}
+
+void Player::moveDown(){
+
+     // left key is pressed: move character
+    facing = down;
+
+    //set sprite animation for walking down
+    loopMode(newFace(), 6, 12);
+
+    //move sprite down incrementally
+    movePos(getCollide(), 0, 4);
+}
+
+void Player::moveUp(){
+
+        //up key is pressed: move character up
+        facing = up;
+
+        //set sprite animation for walking up
+        loopMode(newFace(), 0, 6);
+
+        //move sprite up incrementally
+        movePos(getCollide(), 0, -4);
+}
 
 //this returns the players movement heading
 int Player::getFace(){
@@ -282,6 +153,20 @@ int Player::getFace(){
         return false;
     }
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//         this is the player loop, it takes care of all functions that belong to                    ////
+//                      the player object and will be drawn in main                                  ////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            void Player::Draw(){
+
+                                drawBlast();
+                                drawBombs();
+                                win.draw(getNext());
+                            }                                                                          //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 //this function draws all the blocks on the screen
 void Player::drawBombs(){
@@ -312,66 +197,96 @@ void Player::drawBombs(){
     }
 }
 
+//this function detects a collision between input player and input bombs, if there is the player has been
+//beaten
+void Player::collideBlast( std::vector <Bomb* > b, Sprites _sp){
+
+     //loops through the handler array that contains an array of bombs that belong to player
+    for(auto &bombs: b){
+
+        //if player @args collides with a bomb and it is of blast type death will be set to true!
+        if(_sp.collission(bombs) && bombs->getBlast()){
+
+            setDeath(true);
+        }
+    }
+}
+
+//this function checks each input blast against the handlers own bombs, if there is a collision then
+//they will be set to explode by setting ignite to true
+void Player::igniteBlast( std::vector <Bomb* > b){
+
+     //loops through the handler array that contains an array of bombs that belong to player
+    for(auto &otherBombs: b){
+
+        for(auto &localBombs: handler){
+
+            if( !localBombs->getBlast() && localBombs->collission(otherBombs) && otherBombs->getBlast()){
+
+                localBombs->setIgnite(true);
+            }
+        }
+    }
+}
+
+
+
 //the following function will create the 'bomb.flame' amount of bombs in each direction but stop when colliding with a block
 //the reference to the collision will destroy the block if it is of type
 void Player::drawBlast(){
 
-    //each for loop creates bombs in each of the four directions....
-    for(int x = 0; x < getFlame(); x++){
+   if(blastFlag){
 
-        handler.push_back(new Bomb(getBlastX() + (x * 25), getBlastY()));
-        handler.back()->setIgnite(true);
+        //each for loop creates bombs in each of the four directions....
+        for(int x = 0; x < getFlame(); x++){
 
-            if(arenaCheck(*handler.back(), true)){
+            handler.push_back(new Bomb(getBlastX() + (x * 25), getBlastY()));
+            handler.back()->setIgnite(true);
 
-                break;
-            }
-    }
+                if(arenaCheck(*handler.back(), true)){
 
-    for(int x = 0; x < getFlame(); x++){
+                    break;
+                }
+        }
 
-         handler.push_back(new Bomb(getBlastX() - (x * 25), getBlastY()));
-          handler.back()->setIgnite(true);
+        for(int x = 0; x < getFlame(); x++){
 
-            if(arenaCheck(*handler.back(), true)){
+             handler.push_back(new Bomb(getBlastX() - (x * 25), getBlastY()));
+              handler.back()->setIgnite(true);
 
-                break;
-            }
-    }
-     for(int x = 0; x < getFlame(); x++){
+                if(arenaCheck(*handler.back(), true)){
 
-        handler.push_back(new Bomb(getBlastX(), getBlastY() + (x * 25)));
-         handler.back()->setIgnite(true);
+                    break;
+                }
+        }
+         for(int x = 0; x < getFlame(); x++){
 
-            if(arenaCheck(*handler.back(), true)){
+            handler.push_back(new Bomb(getBlastX(), getBlastY() + (x * 25)));
+             handler.back()->setIgnite(true);
 
-                break;
-            }
-    }
+                if(arenaCheck(*handler.back(), true)){
 
-    for(int x = 0; x < getFlame(); x++){
+                    break;
+                }
+        }
 
-         handler.push_back(new Bomb(getBlastX(), getBlastY()  - (x * 25)));
-          handler.back()->setIgnite(true);
+        for(int x = 0; x < getFlame(); x++){
 
-            if(arenaCheck(*handler.back(), true)){
+             handler.push_back(new Bomb(getBlastX(), getBlastY()  - (x * 25)));
+              handler.back()->setIgnite(true);
 
-                break;
-            }
-    }
+                if(arenaCheck(*handler.back(), true)){
+
+                    break;
+                }
 
 
+        }
+      blastFlag = false;
+   }
 }
 
-void Player::doBlast(){
-
-    if(blastFlag){
-
-        drawBlast();
-        blastFlag = false;
-    }
-}
-
+//getter functions for bomb x y and flame values
 int Player::getFlame(){
 
     return flame;
@@ -387,6 +302,8 @@ int Player::getBlastY(){
     return blastY;
 }
 
+//setter function for all values necessary for creating a bomb object and a flag
+//to tell drawblast to go ahead with stored variables to create a bomb
 void Player::initBlast(bool _flag, int _x, int _y, int _f){
 
     blastFlag = true;
@@ -421,6 +338,19 @@ bool Player::arenaCheck(Sprites _sp, bool kill){
 
     return collided;
 }
+
+//set for player alive dead states
+void Player::setDeath(bool _d){
+
+    isAlive = _d;
+}
+
+//get for players alive dead states
+bool Player::getDeath(){
+
+    return isAlive;
+}
+
 
 //this function sets a pointer to the arena class for operations that require
 //checking and changing the arena class

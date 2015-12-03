@@ -34,6 +34,8 @@ class Player: public Sprites{
         //changes can be made to the objects dynamically
          std::vector <Bomb* > handler;
 
+         void garbage();
+
          //reference object of RenderWindow for draw function
         sf::RenderWindow &win;
 
@@ -48,6 +50,7 @@ class Player: public Sprites{
 
         //changes the heading value by detecting key inputs
         void keyInput(sf::Event);
+        void keyInput();
 
         //this returns the players movement heading
         int getFace();
@@ -76,9 +79,22 @@ class Player: public Sprites{
 
         int getFlame();
 
-        int getKeyLayout();
+        //sets isAlive bool t ofalse
+        void setDeath(bool _d);
 
-        void setKeyLayout(int _l);
+        //returns wether or not player is dead
+        bool getDeath();
+
+        void collideBlast( std::vector <Bomb* >, Sprites);
+        void igniteBlast(std::vector <Bomb* >);
+
+        void layBomb();
+
+        //these are the four directions the player can move
+        void moveUp();
+        void moveDown();
+        void moveLeft();
+        void moveRight();
 
     private:
 
@@ -88,7 +104,9 @@ class Player: public Sprites{
         //layout specifies which keyboard layout to use.
         int facing, previouslyFacing, flame, blastX, blastY, layout;
 
-        bool blastFlag;
+        //blastflag is set to true in initBlast and set false again in do blast, when true, draws a bomb in stored positions
+        //is alive isto check if the player is dead or not
+        bool blastFlag, isAlive;
 
 };
 

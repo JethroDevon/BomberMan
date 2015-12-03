@@ -46,18 +46,21 @@ mysterious walking animation bug solved, changing player facing variable half wa
 
 multiple keyboard players: add player loop so pl object is player array instead, add option to gui
 
+bomb blasts killing players
+
+colour for seperation of two players
+
+bomb blasts colliding with bombs setting them off
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 			TO-DO list:  
 
+bug with keyboard, one keypress cancells another, look into threading
 
 Image manager: a static image loader class can load all textures once and pass required textures into sprite constructor, this will stop loading an image each time
 a new block is created at the beginning or a bomb is dynamically created.
-
-bomb blasts colliding with bombs setting them off
-
-bomb blasts killing players
 
 players colliding with bombs but not if they have just laid one
 

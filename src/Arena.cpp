@@ -9,8 +9,19 @@ Arena::Arena(sf::RenderWindow &_window): win(_window){
 Arena::~Arena(){
 
     //calls destructor on each object in vector
+    garbage();
+}
+
+void Arena::garbage(){
+
+    for (std::vector< Block* >::iterator it = handler.begin() ; it != handler.end(); ++it){
+
+        delete (*it);
+    }
+
     handler.clear();
 }
+
 
 //this should make the blocks in the arena, its a cumbersome and ugly  bit of code
 //however I want to be able to handle more unusual data later on with the possibility of

@@ -47,6 +47,8 @@ class Arena{
 
         void loadLevel(std::string);
 
+        void garbage();
+
         //level integer public, networking protocol can return level type simply by
         //getting level string
         std::string level;

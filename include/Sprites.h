@@ -127,6 +127,9 @@ class Sprites{
         void setStoredX(int);
         void setStoredY(int);
 
+        //shades the sprite colour at args rgb
+        void colorSprite(int, int, int);
+
         //stores events so new instance does not have to be regularly made each loop
         sf::Event event;
 

@@ -83,6 +83,16 @@ void Sprites::setSprite(){
     sprite.setPosition(getPosX(),getPosY());
 }
 
+//adds a colour filter to all frames belonging to the sprite, this taakes three ints rather than a colour object so
+//as to keep other usees for the function open to being used differently
+void Sprites::colorSprite(int r, int g, int b){
+
+    for(auto &f: frames){
+
+        f.setColor(sf::Color(r, g, b)); // green
+    }
+}
+
 //adds frames to the array called frames by pushing back sub images
 void Sprites::addFrames(){
 
