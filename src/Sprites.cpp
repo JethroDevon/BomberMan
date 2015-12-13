@@ -10,44 +10,33 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                             ///////////////////////////////
                                                                                                        ////
-//constructor                                                                                           ///
-Sprites::Sprites(std::string _path): path( _path){
+//constructor                                                                                          ////
+Sprites::Sprites(std::string _path): iLoad("cb.bmp"), path( _path){                                    ////
 
- //if image is successfully loaded
- if(setImage()){
+
 
     //sets sprites in sprite sheet
     setSprite();
-    std::cout << "Image @" << path << " loaded." << std::endl;
- }else{
 
-    std::cout << "Image @   " << path << " failed." << std::endl;
- }
 
- //updates time passed since program started
- startTime = std::clock();
+    //updates time passed since program started
+    startTime = std::clock();
 }
 
 //overloaded constructor for contact sheets with multiple frames on them
-Sprites::Sprites(std::string _path, int _rows, int _cols): path( _path){
+Sprites::Sprites(std::string _path, int _rows, int _cols): iLoad("cb.bmp"), path( _path){
 
     rows = _rows;
     cols = _cols;
 
-     //if image is found go ahead and initialise member variables
-     if(setImage()){
-
-        //set a starting frame, total frames and call frame array building function
-        frame = 0;
-        startFrame = frame;
-        total_frames = (rows * cols);
-
-        //breaks down image into frames in vector of sprites
-        addFrames();                                                                                ////
-     }else{                                                                                         ////
+    //set a starting frame, total frames and call frame array building function
+    frame = 0;
+    startFrame = frame;
+    total_frames = (rows * cols);                                                                   ////
                                                                                                     ////
-        std::cout << "Image @   " << path << " failed." << std::endl;                               ////
-     }                                                                                              ////
+    //breaks down image into frames in vector of sprites                                            ////
+    addFrames();                                                                                    ////
+                                                                                                    ////
                                                                                                     ////
     //updates time passed since program started                                                     ////
     startTime = std::clock();                                                                       ////
@@ -76,9 +65,9 @@ void Sprites::destroy(){
 //from the image loaded in the constructor
 void Sprites::setSprite(){
 
-    //total_frames = (rows * cols) - 1;
-    tex.create(cntSheet.getSize().x, cntSheet.getSize().y);
-    tex.update(cntSheet);
+
+    tex.create(iLoad.getImage(path).getSize().x,iLoad.getImage(path).getSize().y);
+    tex.update(iLoad.getImage(path));
     sprite.setTexture(tex);
     sprite.setPosition(getPosX(),getPosY());
 }
@@ -97,14 +86,13 @@ void Sprites::colorSprite(int r, int g, int b){
 void Sprites::addFrames(){
 
     //create texture and update the image from image file
-    tex.create(cntSheet.getSize().x, cntSheet.getSize().y);
-    tex.update(cntSheet);
+    tex.create(iLoad.getImage(path).getSize().x, iLoad.getImage(path).getSize().y);
+    tex.update(iLoad.getImage(path));
 
-  //  setWH(cntSheet.getSize().x, cntSheet.getSize().y);
     //work out the size of the subframes if contact image is
     //set up to cut images in this way
-    int width = (1 * cntSheet.getSize().x)/cols;
-    int height = (1 * cntSheet.getSize().y)/rows;
+    int width = (1 * tex.getSize().x)/cols;
+    int height = (1 * tex.getSize().y)/rows;
 
     //loop for each row and column of texture image creating sub images for animation
     for(int c = 0; c < rows ; c++){
@@ -376,13 +364,4 @@ sf::Sprite Sprites::showFrame(){
     return frames[frame];
 }
 
-bool Sprites::setImage(){
 
-    if (cntSheet.loadFromFile(path)){
-
-        return true;
-    }else{
-
-        return false;
-    }
-}

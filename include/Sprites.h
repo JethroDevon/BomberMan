@@ -6,37 +6,11 @@
 #include <iostream>
 #include <vector>
 #include <time.h>
+#include "ImageLoader.h"
 
-// ----------------------------------------------------------------------
-//                             |\      /|        _                       |
-//                             | \____/ |       (                        |
-//                             |  /\/\  |        \   _  ._ o _|_  _   _  |
-//                            .'        `.       _) |_) |  |  |_ (/_ _>  |
-//                           /  #\   #\   \         |                    |
-//          _.--------------( __   __   ___)                             |
-//       .-' \  -. | | | | | \ ---|\/|--- /     The sprite class takes   |
-//     .'\  | | / \` | | | |  `.        .'      an image on creation, it |
-//    /`  ` ` '/ / \ | | | | \  `------'\       then slices this image   |
-//   /-  `-------.' `-----.       -----. `---.  up and adds the sub      |
-//  (  / | | | |  )/ | | | )/ | | | | | ) | | ) images in the form of    |
-//   `._________.'_____,,,/\_______,,,,/_,,,,/  sprites initialized with |
-// a texture  object onto an array list called frames.                   |
-//                                                                       |
-// The frames taken are the size of the image divided by rows and        |
-// columns.                                                              |
-//                                                                       |
-// I may create other constructors to control other methods of this.     |
-//                                                                       |
-//  this class is important as its the base class for Player, Blocks,    |
-// Bombs, Powerups and Hud!                                              |
-//                                                                       |
-// It contains functions to manipulate the animations by storing data    |
-// for loop sequences.                                                   |
-//                                                                       |
-// It could also contain functions for applying effects to the sprites   |
-// ----------------------------------------------------------------------
-
-
+// The sprite class takes an image on creation, it then slices this image
+// up and adds the sub images in the form of sprites initialized with a texture
+// object onto an array list called frames.  Image loading class has been added to reduce overhead.
 class Sprites{
 
     public:
@@ -133,10 +107,10 @@ class Sprites{
         //stores events so new instance does not have to be regularly made each loop
         sf::Event event;
 
-    private:
+        //image loader object
+        ImageLoader iLoad;
 
-        //the Image variable is a contact sheet for sprites to use in animation
-        sf::Image cntSheet;
+    private:
 
         //path string will contain location of image to load on to cntSheet
         std::string path;

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1449172286 source:c:\users\jethro\desktop\uni\bomberman\main.cpp
+1450041601 source:c:\users\jethro\desktop\uni\bomberman\main.cpp
 	<SFML/Graphics.hpp>
 	<Player.h>
 	<Arena.h>
@@ -725,63 +725,64 @@
 	<string>
 	<iostream>
 
-1449168069 source:c:\users\jethro\desktop\uni\bomberman\src\sprites.cpp
+1450034317 source:c:\users\jethro\desktop\uni\bomberman\src\sprites.cpp
 	"Sprites.h"
 
-1449167966 c:\users\jethro\desktop\uni\bomberman\include\sprites.h
+1450034234 c:\users\jethro\desktop\uni\bomberman\include\sprites.h
 	<SFML/Graphics.hpp>
 	<string>
 	<iostream>
 	<vector>
 	<time.h>
+	"ImageLoader.h"
 
-1449172134 source:c:\users\jethro\desktop\uni\bomberman\src\player.cpp
+1449960665 source:c:\users\jethro\desktop\uni\bomberman\src\player.cpp
 	"Player.h"
 	<algorithm>
 
-1449171490 c:\users\jethro\desktop\uni\bomberman\include\player.h
+1449960665 c:\users\jethro\desktop\uni\bomberman\include\player.h
 	"Sprites.h"
 	"Bomb.h"
 	"Arena.h"
 	<vector>
 	<ctime>
 
-1449168835 c:\users\jethro\desktop\uni\bomberman\include\arena.h
+1449960665 c:\users\jethro\desktop\uni\bomberman\include\arena.h
 	"Sprites.h"
 	"Block.h"
 	<fstream>
 	<vector>
 	<cstdlib>
 
-1448742565 source:c:\users\jethro\desktop\uni\bomberman\src\bomb.cpp
+1449960665 source:c:\users\jethro\desktop\uni\bomberman\src\bomb.cpp
 	"Bomb.h"
 
-1448555685 c:\users\jethro\desktop\uni\bomberman\include\bomb.h
+1449960665 c:\users\jethro\desktop\uni\bomberman\include\bomb.h
 	"Sprites.h"
 
-1448555685 source:c:\users\jethro\desktop\uni\bomberman\src\hud.cpp
+1449960665 source:c:\users\jethro\desktop\uni\bomberman\src\hud.cpp
 	"Hud.h"
 
-1448555685 c:\users\jethro\desktop\uni\bomberman\include\hud.h
+1449960665 c:\users\jethro\desktop\uni\bomberman\include\hud.h
 
-1448555685 source:c:\users\jethro\desktop\uni\bomberman\src\powerup.cpp
+1449960665 source:c:\users\jethro\desktop\uni\bomberman\src\powerup.cpp
 	"Powerup.h"
 
-1448555685 c:\users\jethro\desktop\uni\bomberman\include\powerup.h
+1449960665 c:\users\jethro\desktop\uni\bomberman\include\powerup.h
 
-1449168799 source:c:\users\jethro\desktop\uni\bomberman\src\arena.cpp
+1449960665 source:c:\users\jethro\desktop\uni\bomberman\src\arena.cpp
 	"Arena.h"
 
-1448555685 c:\users\jethro\desktop\uni\bomberman\include\block.h
+1449960665 c:\users\jethro\desktop\uni\bomberman\include\block.h
 	"Sprites.h"
 
-1448555685 source:c:\users\jethro\desktop\uni\bomberman\src\block.cpp
+1449960665 source:c:\users\jethro\desktop\uni\bomberman\src\block.cpp
 	"Block.h"
 
 1446838686 source:c:\users\jethro\desktop\uni\bomberman\src\game.cpp
 	"Game.h"
 
-1448555685 c:\users\jethro\desktop\uni\bomberman\include\game.h
+1449960665 c:\users\jethro\desktop\uni\bomberman\include\game.h
 	<string>
 	<iostream>
 
@@ -846,4 +847,12 @@
 
 1448370864 source:c:\users\jethro\desktop\documents\bomberman\src\player.cpp
 	"Player.h"
+
+1450034669 c:\users\jethro\desktop\uni\bomberman\include\imageloader.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	<map>
+
+1450034565 source:c:\users\jethro\desktop\uni\bomberman\src\imageloader.cpp
+	"ImageLoader.h"
 
