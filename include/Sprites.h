@@ -110,13 +110,14 @@ class Sprites{
         //image loader object
         ImageLoader iLoad;
 
+         //texture file for initialising sprite with, needs to be public for splash screen
+        sf::Texture tex;
+
+
     private:
 
         //path string will contain location of image to load on to cntSheet
         std::string path;
-
-        //texture file for initialising sprite with
-        sf::Texture tex;
 
         //dimensions of the sprite or all frames of the sprite as a whole, this is for collisions or movement
         int posX, posY, sWidth, sHeight, storedX ,storedY;

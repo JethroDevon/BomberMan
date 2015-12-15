@@ -55,26 +55,26 @@ bomb blasts colliding with bombs setting them off
 Image manager: a static image loader class can load all textures once and pass required textures into sprite constructor, this will stop loading an image each time
 a new block is created at the beginning or a bomb is dynamically created.
 
+Splash screen, added splash screen, have to fix exiting now, will use GUI I guess, maybe better finding out how to return title bar
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 			TO-DO list:  
 
-bug with keyboard, one keypress cancells another, look into threading
+bug with keyboard, one keypress cancells another,
 
 players colliding with bombs but not if they have just laid one
 
 hud, add minimum displayable stuff, use mouse hover to bring about options and pause in game
 
-gui: use same hud button class, maybe start with splash and display loading messages
+gui: use also in hud  class, 
 
-pickups: add a couple of pickups for proof of concept
+pickups: add a couple of pickups for proof of concept at least
+
+ networked players: set up udp server in gui, when connected hit go, use json library, also send server/client status messages, use ticks class for timouts
 
 polishing
-
-no time -> networked players: set up udp server in gui, when connected hit go, use json library, also send server/client status messages, use ticks class for timouts
-
-
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

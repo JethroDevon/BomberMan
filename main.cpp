@@ -2,14 +2,22 @@
 #include <Player.h>
 #include <Arena.h>
 #include <Game.h>
+#include <Splash.h>
 
 int main(){
 
     // create the window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "BOMBER MAN");
+    sf::RenderWindow window(sf::VideoMode(0, 0), "BOMBER MAN", false);
+
+
+    //draw the temporary splash screen briefly for good measure, changes to
+    //window title bar and that to follow
+    Splash splash(window, "XD.png", 4, 4, 4);
 
     //setting frame rate, appears to stay the same on different computers
     window.setFramerateLimit(12);
+
+    splash.returnWindow(800, 600);
 
     //--ARENA AND SETUP FUNCTIONS MUST BE CREATED BEFORE PLAYER--
     Arena arena(window);
@@ -76,6 +84,9 @@ int main(){
         }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 
             pl.moveRight();
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+
+            window.close();
         }
 
 

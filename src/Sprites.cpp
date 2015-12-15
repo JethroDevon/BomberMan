@@ -21,6 +21,7 @@ Sprites::Sprites(std::string _path): iLoad("cb.bmp"), path( _path){             
 
     //updates time passed since program started
     startTime = std::clock();
+
 }
 
 //overloaded constructor for contact sheets with multiple frames on them
@@ -40,6 +41,9 @@ Sprites::Sprites(std::string _path, int _rows, int _cols): iLoad("cb.bmp"), path
                                                                                                     ////
     //updates time passed since program started                                                     ////
     startTime = std::clock();                                                                       ////
+                                                                                                    ////
+    //sets a sprite to be the first frame for good measure                                          ////
+    sprite = frames[0];                                                                             ////
 }                                                                                                   ////
                                                                     ////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

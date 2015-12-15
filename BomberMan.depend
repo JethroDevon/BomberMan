@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1450041601 source:c:\users\jethro\desktop\uni\bomberman\main.cpp
+1450211200 source:c:\users\jethro\desktop\uni\bomberman\main.cpp
 	<SFML/Graphics.hpp>
 	<Player.h>
 	<Arena.h>
 	<Game.h>
+	<Splash.h>
 
 1429780453 c:\sfml-2.3.2\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -725,10 +726,10 @@
 	<string>
 	<iostream>
 
-1450034317 source:c:\users\jethro\desktop\uni\bomberman\src\sprites.cpp
+1450210731 source:c:\users\jethro\desktop\uni\bomberman\src\sprites.cpp
 	"Sprites.h"
 
-1450034234 c:\users\jethro\desktop\uni\bomberman\include\sprites.h
+1450210517 c:\users\jethro\desktop\uni\bomberman\include\sprites.h
 	<SFML/Graphics.hpp>
 	<string>
 	<iostream>
@@ -853,6 +854,12 @@
 	<iostream>
 	<map>
 
-1450034565 source:c:\users\jethro\desktop\uni\bomberman\src\imageloader.cpp
+1450041769 source:c:\users\jethro\desktop\uni\bomberman\src\imageloader.cpp
 	"ImageLoader.h"
+
+1450210478 source:c:\users\jethro\desktop\uni\bomberman\src\splash.cpp
+	"Splash.h"
+
+1450210448 c:\users\jethro\desktop\uni\bomberman\include\splash.h
+	"Sprites.h"
 

@@ -43,6 +43,7 @@
 		<Unit filename="include/ImageLoader.h" />
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/Powerup.h" />
+		<Unit filename="include/Splash.h" />
 		<Unit filename="include/Sprites.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Arena.cpp" />
@@ -52,6 +53,7 @@
 		<Unit filename="src/ImageLoader.cpp" />
 		<Unit filename="src/Player.cpp" />
 		<Unit filename="src/Powerup.cpp" />
+		<Unit filename="src/Splash.cpp" />
 		<Unit filename="src/Sprites.cpp" />
 		<Extensions>
 			<code_completion />
